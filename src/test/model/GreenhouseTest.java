@@ -93,7 +93,11 @@ public class GreenhouseTest {
         testGreenhouse.updatePlants(60);
         testGreenhouse.plantSeed("Cactus", 60);
         testGreenhouse.updatePlants(120);
-        testGreenhouse.waterPlant("Cactus", 120);
+
+        assertFalse(testGreenhouse.waterPlant("Fern", 120));
+
+        assertTrue(testGreenhouse.waterPlant("Cactus", 120));
+
         Plant testLilly = testGreenhouse.getPlant("Lilly");
         assertEquals( 100 - (120 / testLilly.DEHYDRATION_RATE), testLilly.getHydration());
         Plant testCactus = testGreenhouse.getPlant("Cactus");
