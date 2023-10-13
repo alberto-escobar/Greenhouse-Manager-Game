@@ -11,7 +11,6 @@ public class Greenhouse {
     int wallet;
     int seeds;
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
     public Greenhouse() {
@@ -20,7 +19,6 @@ public class Greenhouse {
         this.seeds = 0;
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: if wallet has more than 10 dollars, add 1 to seeds and subtract 10 from wallet
     public boolean buySeed() {
@@ -32,7 +30,7 @@ public class Greenhouse {
         return false;
     }
 
-    // REQUIRES: name is non-empty string, time > 0
+    // REQUIRES: name is non-empty string and is not a plant name in plants list, time > 0
     // MODIFIES: this
     //   EFFECT: creates a Plant object with a name and timePlanted equal to name and timeCurrent and adds it to Plants
     //           and returns true. If there is a plant in plants with the same name, the newly created plant will not
@@ -82,7 +80,6 @@ public class Greenhouse {
     }
 
     // REQUIRES: name is the name of a plant in plants list
-    // MODIFIES: none
     //   EFFECT: Returns Plant object in plants list with matching name, if no plant of that name exists, returns null.
     public Plant getPlant(String name) {
         for (Plant plant : this.plants) {

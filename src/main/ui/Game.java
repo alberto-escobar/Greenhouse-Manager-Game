@@ -10,7 +10,6 @@ public class Game {
     int time;
     Greenhouse greenhouse;
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: creates Game object, initializes scanner for keyboard commands, and opens the welcome prompt.
     public Game() {
@@ -25,7 +24,6 @@ public class Game {
         }
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: runs main game and waits for user input to process command. If user enters "q", game quits.
     public void run() {
@@ -45,7 +43,7 @@ public class Game {
         System.out.println("good bye!");
     }
 
-    // REQUIRES: valid string command
+    // REQUIRES: String to be a string
     // MODIFIES: this
     //   EFFECT: Processes user command.
     public void processCommand(String command) {
@@ -67,7 +65,6 @@ public class Game {
         }
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: updates current game time and updates plants in Greenhouse to current game time
     public void updateTime() {
@@ -77,8 +74,6 @@ public class Game {
         greenhouse.updatePlants(this.time);
     }
 
-    // REQUIRES: nothing
-    // MODIFIES: this
     //   EFFECT: outputs wallet amount, seed amount, and list of plants along with their age and hydration level to
     //           terminal.
     public void printGreenhouseCommand() {
@@ -96,7 +91,6 @@ public class Game {
 
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: Asks user for new plant name and plants seed in Greenhouse.
     public void plantSeedCommand() {
@@ -107,7 +101,6 @@ public class Game {
         }
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: Buys seed in Greenhouse.
     public void buySeedCommand() {
@@ -116,7 +109,6 @@ public class Game {
         }
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: asks user for name of plant to sell and sells plant.
     public void sellPlantCommand() {
@@ -127,7 +119,6 @@ public class Game {
         }
     }
 
-    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: asks user for plant name to water and waters plant
     public void waterPlantCommand() {
