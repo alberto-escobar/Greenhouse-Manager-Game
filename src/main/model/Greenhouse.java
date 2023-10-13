@@ -3,7 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-// DONT FORGET CLASS LEVEL COMMENT
+
+// Represents a greenhouse with a wallet, seeds, and list of plants.
+
 public class Greenhouse {
     List<Plant> plants;
     int wallet;
