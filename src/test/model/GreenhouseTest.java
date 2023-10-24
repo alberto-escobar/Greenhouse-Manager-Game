@@ -13,7 +13,7 @@ public class GreenhouseTest {
     //set up
     @BeforeEach
     void setup() {
-        testGreenhouse = new Greenhouse();
+        testGreenhouse = new Greenhouse(0);
     }
     //test constructor
     @Test
@@ -21,6 +21,7 @@ public class GreenhouseTest {
         assertEquals(100, testGreenhouse.getWallet());
         assertEquals(0, testGreenhouse.getSeeds());
         assertEquals(0, testGreenhouse.getPlants().size());
+        assertEquals(0, testGreenhouse.getTime());
     }
     //test that buying seed once, multiple and when out of money works
     @Test
@@ -43,27 +44,36 @@ public class GreenhouseTest {
     //test planting with no seed, planting one seed, and planting two seeds, planting plant with the same
     @Test
     void testPlantSeed() {
-        assertFalse(testGreenhouse.plantSeed("Lilly", 0));
+        assertFalse(testGreenhouse.plantSeed("Lilly"));
 
         testGreenhouse.buySeed();
-        assertTrue(testGreenhouse.plantSeed("Lilly", 0));
+        assertTrue(testGreenhouse.plantSeed("Lilly"));
         List<Plant> expectedPlants = testGreenhouse.getPlants();
         assertEquals(1, expectedPlants.size());
         assertEquals(expectedPlants.get(0), testGreenhouse.getPlant("Lilly"));
 
         testGreenhouse.buySeed();
-        assertTrue(testGreenhouse.plantSeed("Cactus", 0));
+        assertTrue(testGreenhouse.plantSeed("Cactus"));
         expectedPlants = testGreenhouse.getPlants();
         assertEquals(2, expectedPlants.size());
         assertEquals(expectedPlants.get(0), testGreenhouse.getPlant("Lilly"));
         assertEquals(expectedPlants.get(1), testGreenhouse.getPlant("Cactus"));
 
         testGreenhouse.buySeed();
-        assertFalse(testGreenhouse.plantSeed("Lilly",0));
+        assertFalse(testGreenhouse.plantSeed("Lilly"));
         expectedPlants = testGreenhouse.getPlants();
         assertEquals(2, expectedPlants.size());
         assertEquals(expectedPlants.get(0), testGreenhouse.getPlant("Lilly"));
         assertEquals(expectedPlants.get(1), testGreenhouse.getPlant("Cactus"));
+    }
+
+
+    @Test
+    void testUpdateTime() {
+        testGreenhouse.updateTime(60000);
+        assertEquals(60, testGreenhouse.getTime());
+        testGreenhouse.updateTime(120000);
+        assertEquals(120, testGreenhouse.getTime());
     }
 
     //test that all plant objects in plants lise age and dehydrate after updated a given length of time
@@ -71,10 +81,12 @@ public class GreenhouseTest {
     void testUpdatePlants() {
         testGreenhouse.buySeed();
         testGreenhouse.buySeed();
-        testGreenhouse.plantSeed("Lilly", 0);
-        testGreenhouse.updatePlants(60);
-        testGreenhouse.plantSeed("Cactus", 60);
-        testGreenhouse.updatePlants(120);
+        testGreenhouse.plantSeed("Lilly");
+        testGreenhouse.updateTime(60000);
+        testGreenhouse.updatePlants();
+        testGreenhouse.plantSeed("Cactus");
+        testGreenhouse.updateTime(120000);
+        testGreenhouse.updatePlants();
 
         Plant testLilly = testGreenhouse.getPlant("Lilly");
         assertEquals( 120 / testLilly.GROWTH_RATE, testLilly.getAge());
@@ -89,14 +101,16 @@ public class GreenhouseTest {
     void testWaterPlant(){
         testGreenhouse.buySeed();
         testGreenhouse.buySeed();
-        testGreenhouse.plantSeed("Lilly", 0);
-        testGreenhouse.updatePlants(60);
-        testGreenhouse.plantSeed("Cactus", 60);
-        testGreenhouse.updatePlants(120);
+        testGreenhouse.plantSeed("Lilly");
+        testGreenhouse.updateTime(60000);
+        testGreenhouse.updatePlants();
+        testGreenhouse.plantSeed("Cactus");
+        testGreenhouse.updateTime(120000);
+        testGreenhouse.updatePlants();
 
-        assertFalse(testGreenhouse.waterPlant("Fern", 120));
+        assertFalse(testGreenhouse.waterPlant("Fern"));
 
-        assertTrue(testGreenhouse.waterPlant("Cactus", 120));
+        assertTrue(testGreenhouse.waterPlant("Cactus"));
 
         Plant testLilly = testGreenhouse.getPlant("Lilly");
         assertEquals( 100 - (120 / testLilly.DEHYDRATION_RATE), testLilly.getHydration());
@@ -109,8 +123,9 @@ public class GreenhouseTest {
     void testSellPlant() {
         testGreenhouse.wallet = 10;
         testGreenhouse.buySeed();
-        testGreenhouse.plantSeed("Lilly", 0);
-        testGreenhouse.updatePlants(30);
+        testGreenhouse.plantSeed("Lilly");
+        testGreenhouse.updateTime(30000);
+        testGreenhouse.updatePlants();
         assertFalse(testGreenhouse.sellPlant("Cactus"));
         assertTrue(testGreenhouse.sellPlant("Lilly"));
         assertTrue(testGreenhouse.getWallet() > 0);
@@ -119,9 +134,10 @@ public class GreenhouseTest {
         testGreenhouse.wallet = 20;
         testGreenhouse.buySeed();
         testGreenhouse.buySeed();
-        testGreenhouse.plantSeed("Lilly", 0);
-        testGreenhouse.plantSeed("Cactus", 0);
-        testGreenhouse.updatePlants(120);
+        testGreenhouse.plantSeed("Lilly");
+        testGreenhouse.plantSeed("Cactus");
+        testGreenhouse.updateTime(120000);
+        testGreenhouse.updatePlants();
         assertTrue(testGreenhouse.sellPlant("Lilly"));
         assertTrue(testGreenhouse.getWallet() > 0);
         assertEquals(1, testGreenhouse.getPlants().size());
@@ -132,8 +148,8 @@ public class GreenhouseTest {
     void testGetPlant(){
         testGreenhouse.buySeed();
         testGreenhouse.buySeed();
-        testGreenhouse.plantSeed("Lilly", 0);
-        testGreenhouse.plantSeed("Cactus", 0);
+        testGreenhouse.plantSeed("Lilly");
+        testGreenhouse.plantSeed("Cactus");
 
         Plant expectedNull = testGreenhouse.getPlant("Fern");
         assertTrue(Objects.isNull(expectedNull));

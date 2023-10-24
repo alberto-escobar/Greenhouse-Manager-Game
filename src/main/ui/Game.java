@@ -7,7 +7,6 @@ import model.Plant;
 // Greenhouse manager game
 public class Game {
     private Scanner input;
-    int time;
     Greenhouse greenhouse;
 
     // MODIFIES: this
@@ -17,7 +16,8 @@ public class Game {
         input.useDelimiter("\n");
         System.out.println("Welcome to Greenhouse Manger 2023! Press s to start!");
         if (input.next().equals("s")) {
-            greenhouse = new Greenhouse();
+            long currentTime = System.currentTimeMillis();
+            greenhouse = new Greenhouse(currentTime);
             run();
         } else {
             System.out.println("good bye!");
@@ -31,7 +31,6 @@ public class Game {
         String command = null;
 
         while (runGame) {
-            updateTime();
             printGreenhouseCommand();
             command = input.next();
             if (command.equals("q")) {
@@ -48,7 +47,7 @@ public class Game {
     //   EFFECT: Processes user command.
     public void processCommand(String command) {
         if (command.equals("")) {
-            this.updateTime();
+            updateTime();
         } else if (command.equals("p")) {
             plantSeedCommand();
         } else if (command.equals("b")) {
@@ -69,9 +68,7 @@ public class Game {
     //   EFFECT: updates current game time and updates plants in Greenhouse to current game time
     public void updateTime() {
         long currentTime = System.currentTimeMillis();
-        this.time = (int) currentTime;
-        this.time = this.time / 1000;
-        greenhouse.updatePlants(this.time);
+        greenhouse.updateTime(currentTime);
     }
 
     //   EFFECT: outputs wallet amount, seed amount, and list of plants along with their age and hydration level to
@@ -96,7 +93,7 @@ public class Game {
     public void plantSeedCommand() {
         System.out.println("Enter name for new plant:");
         String name = input.next();
-        if (!greenhouse.plantSeed(name, this.time)) {
+        if (!greenhouse.plantSeed(name)) {
             System.out.println("Error, either not enough seeds or duplicate name");
         }
     }
@@ -124,7 +121,7 @@ public class Game {
     public void waterPlantCommand() {
         System.out.println("Enter name of plant to water:");
         String name = input.next();
-        if (!greenhouse.waterPlant(name, this.time)) {
+        if (!greenhouse.waterPlant(name)) {
             System.out.println("Plant does not exist");
         }
     }

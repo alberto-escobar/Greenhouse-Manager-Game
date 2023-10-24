@@ -2,6 +2,8 @@ package model;
 
 // Represents a plant with a name, age (in months), and hydration level.
 
+import java.util.List;
+
 public class Plant {
     String name;
     int age;
@@ -10,7 +12,7 @@ public class Plant {
     private int timePlanted;
     private int timeHydrated;
 
-    static final int GROWTH_RATE = 60;
+    static final int GROWTH_RATE = 120;
     static final int DEHYDRATION_RATE = 10;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0

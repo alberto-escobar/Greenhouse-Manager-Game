@@ -10,13 +10,26 @@ public class Greenhouse {
     List<Plant> plants;
     int wallet;
     int seeds;
+    int greenhouseTime;
+    long referenceTime;
 
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
-    public Greenhouse() {
+    public Greenhouse(long currentTime) {
         this.plants = new ArrayList<>();
         this.wallet = 100;
         this.seeds = 0;
+        this.greenhouseTime = 0;
+        this.referenceTime = currentTime;
+    }
+
+    // REQUIRES: currentTime > greenhouseTime
+    // MODIFIES: this
+    //   EFFECT: updates the epoch time of the green house by taking the difference between the current epoch time in
+    //           milliseconds and the reference epoch time in milliseconds and dividing by 1000
+    public void updateTime(long currentTime) {
+        greenhouseTime = (int) (currentTime - referenceTime) / 1000;
+        this.updatePlants();
     }
 
     // MODIFIES: this
@@ -30,37 +43,38 @@ public class Greenhouse {
         return false;
     }
 
-    // REQUIRES: name is non-empty string and is not a plant name in plants list, time > 0
+    // REQUIRES: name is non-empty string and is not a plant name in plants list
     // MODIFIES: this
     //   EFFECT: creates a Plant object with a name and timePlanted equal to name and timeCurrent and adds it to Plants
     //           and returns true. If there is a plant in plants with the same name, the newly created plant will not
     //           be added to plants and the operation returns false.
-    public boolean plantSeed(String name, int currentTime) {
+    public boolean plantSeed(String name) {
         if (this.seeds > 0 && Objects.isNull(this.getPlant(name))) {
-            this.plants.add(new Plant(name, currentTime));
+            this.plants.add(new Plant(name, this.greenhouseTime));
             seeds -= 1;
             return true;
         }
         return false;
     }
 
-    // REQUIRES: time >= timePlanted and timeHydrated for all plant objects in plants
+    // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: executes grow method on each plant in plants using currentTime
-    public void updatePlants(int currentTime) {
+    public void updatePlants() {
         for (Plant plant : plants) {
-            plant.grow(currentTime);
+            plant.grow(this.greenhouseTime);
         }
     }
 
-    // REQUIRES: name is the name of a plant in plants list, time >= timeHydrated
+    // REQUIRES: name is the name of a plant in plants list
     // MODIFIES: this
     //   EFFECT: finds plant based on given name in plants list and executes waterPlant method on it using currentTime
     //           and returns true. If no plant exists with the given name in plants list, the method returns false.
-    public boolean waterPlant(String name, int currentTime) {
+    public boolean waterPlant(String name) {
         Plant plant = getPlant(name);
         if (!Objects.isNull(plant)) {
-            plant.waterPlant(currentTime);
+            plant.waterPlant(this.greenhouseTime);
+            return true;
         }
         return false;
     }
@@ -100,5 +114,9 @@ public class Greenhouse {
 
     public List<Plant> getPlants() {
         return this.plants;
+    }
+
+    public int getTime() {
+        return this.greenhouseTime;
     }
 }
