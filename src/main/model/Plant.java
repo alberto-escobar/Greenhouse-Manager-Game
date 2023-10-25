@@ -80,6 +80,10 @@ public class Plant implements Writable {
         return this.name;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
     public int getAge() {
         return this.age;
     }

@@ -6,7 +6,8 @@ import model.Plant;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonTest {
-    protected void checkGreenhouse(String name, int wallet, int seeds, int greenhouseTime, int numOfPlants, Greenhouse gh) {
+    protected void checkGreenhouse(String name, int wallet, int seeds,
+                                   int greenhouseTime, int numOfPlants, Greenhouse gh) {
         assertEquals(name, gh.getName());
         assertEquals(wallet, gh.getWallet());
         assertEquals(seeds, gh.getSeeds());
@@ -14,8 +15,10 @@ public class JsonTest {
         assertEquals(numOfPlants, gh.getPlants().size());
     }
 
-    protected void checkPlant(String name, String type, int age, int hydration, int timePlanted, int timeHydrated, Plant p) {
+    protected void checkPlant(String name, String type, int age,
+                              int hydration, int timePlanted, int timeHydrated, Plant p) {
         assertEquals(name, p.getName());
+        assertEquals(type, p.getType());
         assertEquals(age, p.getAge());
         assertEquals(hydration, p.getHydration());
         assertEquals(timePlanted, p.getTimePlanted());
