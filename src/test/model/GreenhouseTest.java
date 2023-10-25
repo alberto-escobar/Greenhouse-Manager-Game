@@ -13,7 +13,7 @@ public class GreenhouseTest {
     //set up
     @BeforeEach
     void setup() {
-        testGreenhouse = new Greenhouse(0);
+        testGreenhouse = new Greenhouse("Bob", 0);
     }
     //test constructor
     @Test

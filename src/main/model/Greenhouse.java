@@ -1,12 +1,17 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 // Represents a greenhouse with a wallet, seeds, and list of plants.
 
-public class Greenhouse {
+public class Greenhouse implements Writable {
+    String name;
     List<Plant> plants;
     int wallet;
     int seeds;
@@ -15,12 +20,22 @@ public class Greenhouse {
 
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
-    public Greenhouse(long currentTime) {
+    public Greenhouse(String name, long currentTime) {
+        this.name = name;
         this.plants = new ArrayList<>();
         this.wallet = 100;
         this.seeds = 0;
         this.greenhouseTime = 0;
         this.referenceTime = currentTime;
+    }
+
+    public Greenhouse(String name, int wallet, int seeds, int greenhouseTime, long referenceTime, List<Plant> plants) {
+        this.name = name;
+        this.wallet = wallet;
+        this.seeds = seeds;
+        this.greenhouseTime = greenhouseTime;
+        this.referenceTime = referenceTime - (greenhouseTime * 1000);
+        this.plants = plants;
     }
 
     // REQUIRES: currentTime > greenhouseTime
@@ -102,6 +117,33 @@ public class Greenhouse {
             }
         }
         return null;
+    }
+
+    //   EFFECTS:
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("wallet", this.wallet);
+        json.put("seeds", this.seeds);
+        json.put("plants", plantsToJson());
+        json.put("greenhouseTime", this.greenhouseTime);
+        return json;
+    }
+
+    //   EFFECTS: returns plants in this greenhouse as a JSON array
+    private JSONArray plantsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Plant plant : plants) {
+            jsonArray.put(plant.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getWallet() {

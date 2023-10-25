@@ -1,23 +1,43 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import model.Greenhouse;
 import model.Plant;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 // Greenhouse manager game
 public class Game {
     private Scanner input;
     Greenhouse greenhouse;
+    private String savePath;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // MODIFIES: this
     //   EFFECT: creates Game object, initializes scanner for keyboard commands, and opens the welcome prompt.
     public Game() {
         this.input = new Scanner(System.in);
         input.useDelimiter("\n");
-        System.out.println("Welcome to Greenhouse Manger 2023! Press s to start!");
-        if (input.next().equals("s")) {
+        System.out.println("Welcome to Greenhouse Manger 2023! \n Press s to start new game! press l to load save!");
+        String command = input.next();
+        if (command.equals("s")) {
+            System.out.println("Please input a name for your Greenhouse:");
+            String name = input.next();
+
+            savePath = "./data/" + name + ".json";
+            jsonWriter = new JsonWriter(savePath);
+
             long currentTime = System.currentTimeMillis();
-            greenhouse = new Greenhouse(currentTime);
+            greenhouse = new Greenhouse(name, currentTime);
+            run();
+        } else if (command.equals("l")) {
+            System.out.println("Please input a name of saved greenhouse");
+            String name = input.next();
+            savePath = "./data/" + name + ".json";
+            loadCommand(savePath);
             run();
         } else {
             System.out.println("good bye!");
@@ -56,9 +76,12 @@ public class Game {
             sellPlantCommand();
         } else if (command.equals("w")) {
             waterPlantCommand();
+        } else if (command.equals("save")) {
+            saveCommand();
         } else if (command.equals("h")) {
             System.out.println(
-                    "press enter to update game, b = buy seeds, p = plant seeds, s = sell plant, w = water plant");
+                    "press enter to update game, "
+                            + "b = buy seeds, p = plant seeds, s = sell plant, w = water plant, save = save game");
         } else {
             System.out.println("invalid command, enter h for help");
         }
@@ -123,6 +146,28 @@ public class Game {
         String name = input.next();
         if (!greenhouse.waterPlant(name)) {
             System.out.println("Plant does not exist");
+        }
+    }
+
+    public void saveCommand() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(greenhouse);
+            jsonWriter.close();
+            System.out.println("Saved " + greenhouse.getName() + " to " + savePath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + savePath);
+        }
+    }
+
+    public void loadCommand(String savePath) {
+        try {
+            jsonReader = new JsonReader(savePath);
+            this.greenhouse = jsonReader.read();
+            System.out.println("Loaded " + greenhouse.getName() + " from " + savePath);
+            this.updateTime();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + savePath);
         }
     }
 }

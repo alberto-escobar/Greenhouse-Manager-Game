@@ -2,10 +2,14 @@ package model;
 
 // Represents a plant with a name, age (in months), and hydration level.
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.List;
 
-public class Plant {
+public class Plant implements Writable {
     String name;
+    String type;
     int age;
     int hydration;
 
@@ -20,10 +24,20 @@ public class Plant {
     //   EFFECT: creates a Plant object with name, 100% hydration, and 0 months of age.
     public Plant(String name, int currentTime) {
         this.name = name;
+        this.type = "plant";
         this.timePlanted = currentTime;
         this.timeHydrated = currentTime;
         this.age = 0;
         this.hydration = 100;
+    }
+
+    public Plant(String name, String type, int timePlanted, int timeHydrated, int age, int hydration) {
+        this.name = name;
+        this.type = type;
+        this.timePlanted = timePlanted;
+        this.timeHydrated = timeHydrated;
+        this.age = age;
+        this.hydration = hydration;
     }
 
     // REQUIRES: currentTime >= timePlanted and currentTime >= timeHydrated
@@ -47,6 +61,19 @@ public class Plant {
     public void waterPlant(int currentTime) {
         this.timeHydrated = currentTime;
         this.hydration = 100;
+    }
+
+    //   EFFECT:
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("type", this.type);
+        json.put("age", this.age);
+        json.put("hydration", this.hydration);
+        json.put("timePlanted", this.timePlanted);
+        json.put("timeHydrated", this.timeHydrated);
+        return json;
     }
 
     public String getName() {
