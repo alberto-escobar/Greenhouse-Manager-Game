@@ -25,7 +25,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of Greenhouse to file
     public void write(Greenhouse gh) {
         JSONObject json = gh.toJson();
         saveToFile(json.toString(TAB));

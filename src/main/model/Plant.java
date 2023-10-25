@@ -63,7 +63,7 @@ public class Plant implements Writable {
         this.hydration = 100;
     }
 
-    //   EFFECT:
+    //   EFFECT: returns plant object as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

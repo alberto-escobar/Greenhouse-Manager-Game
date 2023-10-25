@@ -119,7 +119,7 @@ public class Greenhouse implements Writable {
         return null;
     }
 
-    //   EFFECTS:
+    //   EFFECTS: returns greenhouse object as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

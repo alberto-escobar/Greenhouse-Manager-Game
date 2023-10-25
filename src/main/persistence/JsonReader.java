@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+// Represents a writer that reads JSON representation of greenhouse to greenhouse object in game
 public class JsonReader {
     private String source;
 
@@ -21,7 +22,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads greenhouse from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Greenhouse read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +41,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses greenhouse from JSON object and returns greenhouse object
     private Greenhouse parseGreenhouse(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int wallet = jsonObject.getInt("wallet");
@@ -52,8 +53,7 @@ public class JsonReader {
         return gh;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // EFFECTS: parses plants array from JSON object and returns plants array
     private List<Plant> parsePlants(JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("plants");
         List<Plant>  plants = new ArrayList<>();
@@ -64,8 +64,7 @@ public class JsonReader {
         return plants;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // EFFECTS: parses plant from JSON object and returns plant object
     private Plant parsePlant(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String type = jsonObject.getString("type");
