@@ -24,7 +24,7 @@ stream games like Minecraft and Animal Crossing.
 - As a user, I want the option to be able to save the state of my game 
 - As a user, I want the option to restore a previously saved game when I run the game
 
-### Later Phases (To be implemented)
+### Later Phases (To be implemented) 
 - As a user, I want the plant to die if it is not watered for a long enough period of time while the game runs
 - As a user, I want the option to pay off my loan using the money I generate from sales
 - As a user, if my loan debt reaches zero, I want to *win the game*
