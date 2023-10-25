@@ -19,7 +19,7 @@ stream games like Minecraft and Animal Crossing.
 - As a user, I want to see a list of the plants I have in my green house along with their age and 
 - As a user, I want the option to water my plant as it grows
 
-## Phase 2 (Currently implementing)
+## Phase 2 (Implemented)
 - As a user, I want the option to start a new game
 - As a user, I want the option to be able to save the state of my game 
 - As a user, I want the option to restore a previously saved game when I run the game
