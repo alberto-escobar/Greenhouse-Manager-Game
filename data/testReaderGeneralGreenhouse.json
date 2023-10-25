@@ -1,0 +1,14 @@
+{
+    "wallet": 70,
+    "seeds": 2,
+    "plants": [{
+        "hydration": 86,
+        "name": "Lilly",
+        "type": "plant",
+        "age": 1,
+        "timeHydrated": 0,
+        "timePlanted": 0
+    }],
+    "name": "General",
+    "greenhouseTime": 140
+}

@@ -87,4 +87,12 @@ public class Plant implements Writable {
     public int getHydration() {
         return this.hydration;
     }
+
+    public int getTimePlanted() {
+        return this.timePlanted;
+    }
+
+    public int getTimeHydrated() {
+        return this.timeHydrated;
+    }
 }
