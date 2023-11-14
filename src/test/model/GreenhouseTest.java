@@ -158,4 +158,23 @@ public class GreenhouseTest {
         Plant expectedPlant = testGreenhouse.getPlant("Lilly");
         assertTrue(plantList.contains(expectedPlant));
     }
+
+    @Test
+    void testPayDebt() {
+        testGreenhouse.wallet = 2000;
+        assertEquals(1000, testGreenhouse.getDebt());
+        testGreenhouse.payDebt(-100);
+        testGreenhouse.payDebt(2001);
+        testGreenhouse.payDebt(100);
+        assertEquals(900, testGreenhouse.getDebt());
+        assertEquals(1900, testGreenhouse.getWallet());
+
+        assertFalse(testGreenhouse.isDebtPaidOff());
+        testGreenhouse.payDebt(1000);
+        assertEquals(0, testGreenhouse.getDebt());
+        assertEquals(1000, testGreenhouse.getWallet());
+        assertTrue(testGreenhouse.isDebtPaidOff());
+
+
+    }
 }

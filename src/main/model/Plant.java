@@ -17,7 +17,7 @@ public class Plant implements Writable {
     private int timeHydrated;
 
     static final int GROWTH_RATE = 120;
-    static final int DEHYDRATION_RATE = 10;
+    static final int DEHYDRATION_RATE = 2;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this

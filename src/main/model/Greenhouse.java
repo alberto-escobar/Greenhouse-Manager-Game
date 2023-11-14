@@ -17,6 +17,7 @@ public class Greenhouse implements Writable {
     int seeds;
     int greenhouseTime;
     long referenceTime;
+    int debt;
 
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
@@ -27,15 +28,17 @@ public class Greenhouse implements Writable {
         this.seeds = 0;
         this.greenhouseTime = 0;
         this.referenceTime = currentTime;
+        this.debt = 1000;
     }
 
-    public Greenhouse(String name, int wallet, int seeds, int greenhouseTime, long referenceTime, List<Plant> plants) {
+    public Greenhouse(String name, int wallet, int seeds, int greenhouseTime, long referenceTime, List<Plant> plants, int debt) {
         this.name = name;
         this.wallet = wallet;
         this.seeds = seeds;
         this.greenhouseTime = greenhouseTime;
         this.referenceTime = referenceTime - (greenhouseTime * 1000);
         this.plants = plants;
+        this.debt = debt;
     }
 
     // REQUIRES: currentTime > greenhouseTime
@@ -119,6 +122,38 @@ public class Greenhouse implements Writable {
         return null;
     }
 
+    // MODIFIES: this
+    //   EFFECT: Returns Plant object in plants list with matching name, if no plant of that name exists, returns null.
+    public void payDebt(int amount) {
+        if (amount <= 0) {
+            //throw something
+            return;
+        }
+        if (amount > this.wallet) {
+            //throw something;
+            return;
+        } else {
+            if (this.debt < amount) {
+                this.wallet -= this.debt;
+                this.debt = 0;
+            } else {
+                this.wallet -= amount;
+                this.debt -= amount;
+            }
+        }
+    }
+
+    public int getDebt() {
+        return this.debt;
+    }
+
+    public boolean isDebtPaidOff() {
+        if (this.debt <= 0) {
+            return true;
+        }
+        return false;
+    }
+
     //   EFFECTS: returns greenhouse object as JSON object
     @Override
     public JSONObject toJson() {
@@ -128,6 +163,7 @@ public class Greenhouse implements Writable {
         json.put("seeds", this.seeds);
         json.put("plants", plantsToJson());
         json.put("greenhouseTime", this.greenhouseTime);
+        json.put("debt", this.debt);
         return json;
     }
 
@@ -161,4 +197,5 @@ public class Greenhouse implements Writable {
     public int getTime() {
         return this.greenhouseTime;
     }
+
 }

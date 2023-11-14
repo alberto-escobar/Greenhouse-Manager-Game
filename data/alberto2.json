@@ -1,0 +1,15 @@
+{
+    "wallet": 8000,
+    "seeds": 1,
+    "plants": [{
+        "hydration": 93,
+        "name": "fern",
+        "type": "plant",
+        "age": 0,
+        "timeHydrated": 0,
+        "timePlanted": 0
+    }],
+    "name": "alberto2",
+    "greenhouseTime": 15,
+    "debt": 1000
+}

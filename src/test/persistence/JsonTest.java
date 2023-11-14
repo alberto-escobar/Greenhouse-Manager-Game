@@ -5,6 +5,7 @@ import model.Plant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Citation: JsonSerialization Demon
 public class JsonTest {
     protected void checkGreenhouse(String name, int wallet, int seeds,
                                    int greenhouseTime, int numOfPlants, Greenhouse gh) {

@@ -10,5 +10,6 @@
         "timePlanted": 0
     }],
     "name": "General",
-    "greenhouseTime": 140
+    "greenhouseTime": 140,
+    "debt": 1000
 }

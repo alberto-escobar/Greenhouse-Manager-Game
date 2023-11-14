@@ -2,7 +2,7 @@
     "wallet": 70,
     "seeds": 2,
     "plants": [{
-        "hydration": 86,
+        "hydration": 30,
         "name": "Lilly",
         "type": "plant",
         "age": 1,
@@ -10,5 +10,6 @@
         "timePlanted": 0
     }],
     "name": "General",
-    "greenhouseTime": 140
+    "greenhouseTime": 140,
+    "debt": 1000
 }

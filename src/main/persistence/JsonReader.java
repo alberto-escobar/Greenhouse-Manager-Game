@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 // Represents a writer that reads JSON representation of greenhouse to greenhouse object in game
+// Citation: JsonSerialization Demon
 public class JsonReader {
     private String source;
 
@@ -49,7 +50,8 @@ public class JsonReader {
         int greenhouseTime = jsonObject.getInt("greenhouseTime");
         long currentTime = System.currentTimeMillis();
         List<Plant> plants = parsePlants(jsonObject);
-        Greenhouse gh = new Greenhouse(name, wallet, seeds, greenhouseTime, currentTime, plants);
+        int debt = jsonObject.getInt("debt");
+        Greenhouse gh = new Greenhouse(name, wallet, seeds, greenhouseTime, currentTime, plants, debt);
         return gh;
     }
 

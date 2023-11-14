@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Citation: JsonSerialization Demon
 class JsonWriterTest extends JsonTest {
 
     @Test
@@ -60,9 +61,11 @@ class JsonWriterTest extends JsonTest {
             checkGreenhouse("General", 70, 2, 140, 1, gh);
 
             Plant testLilly = gh.getPlant("Lilly");
-            checkPlant("Lilly", "plant", 1, 86, 0, 0, testLilly);
+            checkPlant("Lilly", "plant", 1, 30, 0, 0, testLilly);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
     }
+
+
 }

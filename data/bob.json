@@ -20,5 +20,6 @@
         }
     ],
     "name": "bob",
-    "greenhouseTime": 1000
+    "greenhouseTime": 1000,
+    "debt": 1000
 }

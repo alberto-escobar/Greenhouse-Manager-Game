@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+// Citation: JsonSerialization Demon
 public class JsonReaderTest extends JsonTest {
     @Test
     void testReaderNonExistentFile() {

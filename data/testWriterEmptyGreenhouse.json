@@ -3,5 +3,6 @@
     "seeds": 0,
     "plants": [],
     "name": "Empty",
-    "greenhouseTime": 0
+    "greenhouseTime": 0,
+    "debt": 1000
 }

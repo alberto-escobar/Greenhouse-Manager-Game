@@ -58,6 +58,10 @@ public class Game {
             } else {
                 this.processCommand(command);
             }
+            if (this.greenhouse.isDebtPaidOff()) {
+                runGame = false;
+                System.out.println("You paid off your load, you have won!");
+            }
         }
         System.out.println("good bye!");
     }
@@ -78,10 +82,13 @@ public class Game {
             waterPlantCommand();
         } else if (command.equals("save")) {
             saveCommand();
+        } else if (command.equals("d")) {
+            payDebtCommand();
         } else if (command.equals("h")) {
             System.out.println(
                     "press enter to update game, "
-                            + "b = buy seeds, p = plant seeds, s = sell plant, w = water plant, save = save game");
+                            + "b = buy seeds, p = plant seeds, s = sell plant, w = water plant, save = save game, "
+                            + "d = pay debt");
         } else {
             System.out.println("invalid command, enter h for help");
         }
@@ -97,7 +104,8 @@ public class Game {
     //   EFFECT: outputs wallet amount, seed amount, and list of plants along with their age and hydration level to
     //           terminal.
     public void printGreenhouseCommand() {
-        String stats = "Wallet: $" + greenhouse.getWallet() + " Seed: " + greenhouse.getSeeds();
+        String stats = "Debt: $" + greenhouse.getDebt()
+                + " Wallet: $" + greenhouse.getWallet() + " Seed: " + greenhouse.getSeeds();
         System.out.println(stats);
         String plants = "";
         if (greenhouse.getPlants().isEmpty()) {
@@ -168,6 +176,16 @@ public class Game {
             this.updateTime();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + savePath);
+        }
+    }
+
+    public void payDebtCommand() {
+        try {
+            System.out.println("How much of debt do you want to pay off?");
+            String amount = input.next();
+            this.greenhouse.payDebt(Integer.valueOf(amount));
+        } catch (Exception e) {
+            System.out.println("uh oh");
         }
     }
 }
