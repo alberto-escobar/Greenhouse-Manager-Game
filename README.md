@@ -29,5 +29,12 @@ stream games like Minecraft and Animal Crossing.
 - As a user, if my loan debt reaches zero, I want to *win the game*
 
 ### Phase 3 (To be Implemented)
-- As a user, I want the plant to die if it is not watered for a long enough period of time while the game runs
-
+- Seeds should be deprecated and instead plants a planted using money
+- As a user, I want the plant to die if it is not water before hydration hits zero
+- As a user, I want to be able to plant a cactus
+- Cactus is a plant that increases in value as it ages. until a certain cap
+- as a user, I want to be able to plant a flower
+- Flower is a plant that does not value in age but will be profitable when it blooms and a color is randomized.
+- color dictates selling multipler and is set after a certain age
+- GUI
+- 
