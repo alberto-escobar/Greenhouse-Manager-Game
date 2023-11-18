@@ -1,5 +1,7 @@
 package model;
 
+
+import model.exceptions.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -8,37 +10,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-// Represents a greenhouse with a wallet, seeds, and list of plants.
+// Represents a greenhouse with an owner, wallet, debt, pots, plants, and time fields
 
 public class Greenhouse implements Writable {
-    String name;
-    List<Plant> plants;
-    int wallet;
-    int seeds;
-    int greenhouseTime;
-    long referenceTime;
-    int debt;
+    private String owner;
+
+    private int wallet;
+    private int debt;
+
+    private int pots;
+    private List<Plant> plants;
+
+    private int greenhouseTime;
+    private long referenceTime;
+
 
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
     public Greenhouse(String name, long currentTime) {
-        this.name = name;
-        this.plants = new ArrayList<>();
+        this.owner = name;
         this.wallet = 100;
-        this.seeds = 0;
+        this.debt = 10000;
+        this.pots = 3;
+        this.plants = new ArrayList<>();
         this.greenhouseTime = 0;
         this.referenceTime = currentTime;
-        this.debt = 1000;
+
     }
 
-    public Greenhouse(String name, int wallet, int seeds, int greenhouseTime, long referenceTime, List<Plant> plants, int debt) {
-        this.name = name;
+    public Greenhouse(String owner, int wallet, int debt, int pots, int greenhouseTime, long referenceTime, List<Plant> plants) {
+        this.owner = owner;
         this.wallet = wallet;
-        this.seeds = seeds;
+        this.debt = debt;
+        this.pots = pots;
         this.greenhouseTime = greenhouseTime;
         this.referenceTime = referenceTime - (greenhouseTime * 1000);
         this.plants = plants;
-        this.debt = debt;
     }
 
     // REQUIRES: currentTime > greenhouseTime
@@ -51,42 +58,55 @@ public class Greenhouse implements Writable {
     }
 
     // MODIFIES: this
-    //   EFFECT: if wallet has more than 10 dollars, add 1 to seeds and subtract 10 from wallet
-    public boolean buySeed() {
-        if (wallet >= 10) {
-            seeds += 1;
-            wallet -= 10;
-            return true;
+    //   EFFECT: if wallet has more than 10 dollars, add 1 to seeds and subtract 10 from wallet.
+    //           Throws InsufficientFundsException if wallet < 100.
+    public void buyPots() throws InsufficientFundsException {
+        if (wallet >= 100) {
+            pots += 1;
+            wallet -= 100;
+        } else {
+            throw new InsufficientFundsException();
         }
-        return false;
     }
 
-    // REQUIRES: name is non-empty string and is not a plant name in plants list
+    //   EFFECT: returns the difference of pots minus the number of plants.
+    public int availablePots() {
+        return this.pots - this.plants.size();
+    }
+
     // MODIFIES: this
-    //   EFFECT: creates a Plant object with a name and timePlanted equal to name and timeCurrent and adds it to Plants
-    //           and returns true. If there is a plant in plants with the same name, the newly created plant will not
-    //           be added to plants and the operation returns false.
-    public boolean plantSeed(String name) {
-        if (this.seeds > 0 && Objects.isNull(this.getPlant(name))) {
+    //   EFFECT: creates a Plant object with a name and timePlanted equal to name and greenhouseTime and adds it to
+    //           Plants.
+    //           Throws InsufficientFundsException if wallet < 10.
+    //           Throws DuplicatePlantException if there is already a plant in plants with the same name as parameter
+    //           Throws InsufficientSpaceException if this.availablePots() equals 0
+    public void buyPlant(String name)
+            throws InsufficientFundsException, InsufficientSpaceException, DuplicatePlantException {
+        if (this.wallet >= 10) {
+            if (!Objects.isNull(this.getPlant(name))) {
+                throw new DuplicatePlantException();
+            }
+            if (this.availablePots() == 0) {
+                throw new InsufficientSpaceException();
+            }
             this.plants.add(new Plant(name, this.greenhouseTime));
-            seeds -= 1;
-            return true;
+            this.wallet -= 10;
+        } else {
+            throw new InsufficientFundsException();
         }
-        return false;
     }
 
     // REQUIRES: nothing
     // MODIFIES: this
-    //   EFFECT: executes grow method on each plant in plants using currentTime
+    //   EFFECT: executes grow method on each plant in plants using greenhouseTime
     public void updatePlants() {
         for (Plant plant : plants) {
             plant.grow(this.greenhouseTime);
         }
     }
 
-    // REQUIRES: name is the name of a plant in plants list
     // MODIFIES: this
-    //   EFFECT: finds plant based on given name in plants list and executes waterPlant method on it using currentTime
+    //   EFFECT: finds plant based on given name in plants list and executes waterPlant method using greenhouseTime
     //           and returns true. If no plant exists with the given name in plants list, the method returns false.
     public boolean waterPlant(String name) {
         Plant plant = getPlant(name);
@@ -97,9 +117,8 @@ public class Greenhouse implements Writable {
         return false;
     }
 
-    // REQUIRES: name is the name of a plant in plants list
     // MODIFIES: this
-    //   EFFECT: if the name matches a plan with the same name, the plant is removed from the Greenhouse, sale price is
+    //   EFFECT: if the name matches a plant with the same name, the plant is removed from the Greenhouse, sale price is
     //           calculated based on plant's age, and added to wallet, and method returns true. If no plant with given
     //           name exists in plants list, the method returns false.
     public boolean sellPlant(String name) {
@@ -111,8 +130,7 @@ public class Greenhouse implements Writable {
         return false;
     }
 
-    // REQUIRES: name is the name of a plant in plants list
-    //   EFFECT: Returns Plant object in plants list with matching name, if no plant of that name exists, returns null.
+    //   EFFECT: Returns Plant object in plants list with matching name returns null, if no plant of that name exists.
     public Plant getPlant(String name) {
         for (Plant plant : this.plants) {
             if (name.equals(plant.getName())) {
@@ -123,15 +141,15 @@ public class Greenhouse implements Writable {
     }
 
     // MODIFIES: this
-    //   EFFECT: Returns Plant object in plants list with matching name, if no plant of that name exists, returns null.
-    public void payDebt(int amount) {
+    //   EFFECT: Pays off debt using money from wallet.
+    //           Throws InvalidAmountException if negative value is passed for amount parameter.
+    //           Throws InsufficientFundsException if amount parameter is greater than wallet.
+    public void payDebt(int amount) throws InsufficientFundsException, InvalidAmountException {
         if (amount <= 0) {
-            //throw something
-            return;
+            throw new InvalidAmountException();
         }
         if (amount > this.wallet) {
-            //throw something;
-            return;
+            throw new InsufficientFundsException();
         } else {
             if (this.debt < amount) {
                 this.wallet -= this.debt;
@@ -143,27 +161,24 @@ public class Greenhouse implements Writable {
         }
     }
 
-    public int getDebt() {
-        return this.debt;
-    }
-
+    //   EFFECT: Returns false if debt is greater than 0, otherwise return true.
     public boolean isDebtPaidOff() {
-        if (this.debt <= 0) {
-            return true;
+        if (this.debt > 0) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     //   EFFECTS: returns greenhouse object as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("name", this.name);
+        json.put("owner", this.owner);
         json.put("wallet", this.wallet);
-        json.put("seeds", this.seeds);
+        json.put("debt", this.debt);
+        json.put("pots", this.pots);
         json.put("plants", plantsToJson());
         json.put("greenhouseTime", this.greenhouseTime);
-        json.put("debt", this.debt);
         return json;
     }
 
@@ -178,24 +193,39 @@ public class Greenhouse implements Writable {
         return jsonArray;
     }
 
-    public String getName() {
-        return this.name;
+    public String getOwner() {
+        return this.owner;
     }
 
     public int getWallet() {
         return this.wallet;
     }
 
-    public int getSeeds() {
-        return this.seeds;
+    public void setWallet(int amount) {
+        this.wallet = amount;
+    }
+
+    public int getDebt() {
+        return this.debt;
+    }
+
+    public int getPots() {
+        return this.pots;
     }
 
     public List<Plant> getPlants() {
         return this.plants;
     }
 
+    public int getNumPlants() {
+        return this.plants.size();
+    }
+
     public int getTime() {
         return this.greenhouseTime;
     }
 
+    public void setTime(int time) {
+        this.greenhouseTime = time;
+    }
 }

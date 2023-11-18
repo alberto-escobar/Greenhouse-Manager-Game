@@ -73,9 +73,9 @@ public class Game {
         if (command.equals("")) {
             updateTime();
         } else if (command.equals("p")) {
-            plantSeedCommand();
+            buyPlantCommand();
         } else if (command.equals("b")) {
-            buySeedCommand();
+            //buyPotsCommand();
         } else if (command.equals("s")) {
             sellPlantCommand();
         } else if (command.equals("w")) {
@@ -87,7 +87,7 @@ public class Game {
         } else if (command.equals("h")) {
             System.out.println(
                     "press enter to update game, "
-                            + "b = buy seeds, p = plant seeds, s = sell plant, w = water plant, save = save game, "
+                            + "b = buy seeds, p = buy plant, s = sell plant, w = water plant, save = save game, "
                             + "d = pay debt");
         } else {
             System.out.println("invalid command, enter h for help");
@@ -105,7 +105,7 @@ public class Game {
     //           terminal.
     public void printGreenhouseCommand() {
         String stats = "Debt: $" + greenhouse.getDebt()
-                + " Wallet: $" + greenhouse.getWallet() + " Seed: " + greenhouse.getSeeds();
+                + " Wallet: $" + greenhouse.getWallet() + " AvailablePots: " + greenhouse.availablePots();
         System.out.println(stats);
         String plants = "";
         if (greenhouse.getPlants().isEmpty()) {
@@ -120,20 +120,14 @@ public class Game {
     }
 
     // MODIFIES: this
-    //   EFFECT: Asks user for new plant name and plants seed in Greenhouse.
-    public void plantSeedCommand() {
+    //   EFFECT: Buys baby plant in Greenhouse.
+    public void buyPlantCommand() {
         System.out.println("Enter name for new plant:");
         String name = input.next();
-        if (!greenhouse.plantSeed(name)) {
-            System.out.println("Error, either not enough seeds or duplicate name");
-        }
-    }
-
-    // MODIFIES: this
-    //   EFFECT: Buys seed in Greenhouse.
-    public void buySeedCommand() {
-        if (!greenhouse.buySeed()) {
-            System.out.print("Not enough money");
+        try {
+            greenhouse.buyPlant(name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -142,8 +136,10 @@ public class Game {
     public void sellPlantCommand() {
         System.out.println("Which plant would you like to sell?");
         String name = input.next();
-        if (!greenhouse.sellPlant(name)) {
-            System.out.println("No plant with that name");
+        try {
+            greenhouse.sellPlant(name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -162,7 +158,7 @@ public class Game {
             jsonWriter.open();
             jsonWriter.write(greenhouse);
             jsonWriter.close();
-            System.out.println("Saved " + greenhouse.getName() + " to " + savePath);
+            System.out.println("Saved " + greenhouse.getOwner() + " to " + savePath);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + savePath);
         }
@@ -172,7 +168,7 @@ public class Game {
         try {
             jsonReader = new JsonReader(savePath);
             this.greenhouse = jsonReader.read();
-            System.out.println("Loaded " + greenhouse.getName() + " from " + savePath);
+            System.out.println("Loaded " + greenhouse.getOwner() + " from " + savePath);
             this.updateTime();
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + savePath);

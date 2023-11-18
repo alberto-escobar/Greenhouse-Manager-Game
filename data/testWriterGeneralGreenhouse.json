@@ -1,6 +1,6 @@
 {
-    "wallet": 70,
-    "seeds": 2,
+    "owner": "General",
+    "wallet": 0,
     "plants": [{
         "hydration": 30,
         "name": "Lilly",
@@ -9,7 +9,7 @@
         "timeHydrated": 0,
         "timePlanted": 0
     }],
-    "name": "General",
+    "pots": 4,
     "greenhouseTime": 140,
-    "debt": 1000
+    "debt": 10000
 }

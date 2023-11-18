@@ -44,14 +44,14 @@ public class JsonReader {
 
     // EFFECTS: parses greenhouse from JSON object and returns greenhouse object
     private Greenhouse parseGreenhouse(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
+        String owner = jsonObject.getString("owner");
         int wallet = jsonObject.getInt("wallet");
-        int seeds = jsonObject.getInt("seeds");
+        int debt = jsonObject.getInt("debt");
+        int pots = jsonObject.getInt("pots");
         int greenhouseTime = jsonObject.getInt("greenhouseTime");
         long currentTime = System.currentTimeMillis();
         List<Plant> plants = parsePlants(jsonObject);
-        int debt = jsonObject.getInt("debt");
-        Greenhouse gh = new Greenhouse(name, wallet, seeds, greenhouseTime, currentTime, plants, debt);
+        Greenhouse gh = new Greenhouse(owner, wallet, debt, pots, greenhouseTime, currentTime, plants);
         return gh;
     }
 

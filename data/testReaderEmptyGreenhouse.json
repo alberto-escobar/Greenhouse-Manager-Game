@@ -1,8 +1,8 @@
 {
-    "wallet": 100,
-    "seeds": 0,
-    "plants": [],
-    "name": "Empty",
-    "greenhouseTime": 0,
-    "debt": 1000
+  "owner": "Empty",
+  "wallet": 100,
+  "plants": [],
+  "pots": 3,
+  "greenhouseTime": 0,
+  "debt": 10000
 }

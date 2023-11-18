@@ -34,7 +34,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyGreenhouse.json");
             gh = reader.read();
-            checkGreenhouse("Empty", 100, 0, 0, 0, gh);
+            checkGreenhouse("Empty", 100, 10000, 3, 0, 0, gh);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -44,10 +44,9 @@ class JsonWriterTest extends JsonTest {
     void testWriterGreenhouse() {
         try {
             Greenhouse gh = new Greenhouse("General", 1000);
-            gh.buySeed();
-            gh.buySeed();
-            gh.buySeed();
-            gh.plantSeed("Lilly");
+            gh.setWallet(110);
+            gh.buyPots();
+            gh.buyPlant("Lilly");
             gh.updateTime(141000);
             gh.updatePlants();
 
@@ -58,12 +57,14 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralGreenhouse.json");
             gh = reader.read();
-            checkGreenhouse("General", 70, 2, 140, 1, gh);
+            checkGreenhouse("General", 0, 10000, 4, 140, 1, gh);
 
             Plant testLilly = gh.getPlant("Lilly");
             checkPlant("Lilly", "plant", 1, 30, 0, 0, testLilly);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
         }
     }
 

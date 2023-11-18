@@ -1,15 +1,15 @@
 {
-    "wallet": 70,
-    "seeds": 2,
-    "plants": [{
-        "hydration": 86,
-        "name": "Lilly",
-        "type": "plant",
-        "age": 1,
-        "timeHydrated": 0,
-        "timePlanted": 0
-    }],
-    "name": "General",
-    "greenhouseTime": 140,
-    "debt": 1000
+  "owner": "General",
+  "wallet": 0,
+  "plants": [{
+    "hydration": 30,
+    "name": "Lilly",
+    "type": "plant",
+    "age": 1,
+    "timeHydrated": 0,
+    "timePlanted": 0
+  }],
+  "pots": 4,
+  "greenhouseTime": 140,
+  "debt": 10000
 }
