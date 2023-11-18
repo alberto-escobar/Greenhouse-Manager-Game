@@ -124,7 +124,7 @@ public class Greenhouse implements Writable {
     public boolean sellPlant(String name) {
         Plant plant = this.getPlant(name);
         if (this.plants.remove(plant)) {
-            wallet += 20 * plant.getAge() + 10;
+            wallet += plant.salePrice();
             return true;
         }
         return false;

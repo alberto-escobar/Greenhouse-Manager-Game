@@ -17,7 +17,8 @@ public class Plant implements Writable {
     private int timeHydrated;
 
     static final int GROWTH_RATE = 120;
-    static final int DEHYDRATION_RATE = 2;
+    static final int DEHYDRATION_RATE = 5;
+    static final int MIN_AGE_TO_SELL = 2;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this
@@ -61,6 +62,22 @@ public class Plant implements Writable {
     public void waterPlant(int currentTime) {
         this.timeHydrated = currentTime;
         this.hydration = 100;
+    }
+
+    public int salePrice() {
+        if (age < MIN_AGE_TO_SELL) {
+            return 10;
+        } else {
+            return 20 * this.age + 10;
+        }
+    }
+
+    public boolean readyToSell() {
+        if (age < MIN_AGE_TO_SELL) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //   EFFECT: returns plant object as JSON object

@@ -42,4 +42,28 @@ public class PlantTest {
          testPlant.waterPlant(testPlant.DEHYDRATION_RATE*50+1);
          assertEquals(100, testPlant.getHydration());
      }
+
+    @Test
+    void testSalePrice(){
+        testPlant.grow(testPlant.GROWTH_RATE*1);
+        assertEquals(1, testPlant.getAge());
+        assertEquals(10, testPlant.salePrice());
+
+
+        testPlant.grow(testPlant.GROWTH_RATE*3);
+        assertEquals(3, testPlant.getAge());
+        assertEquals(70, testPlant.salePrice());
+    }
+
+    @Test
+    void testReadyToSell(){
+        testPlant.grow(testPlant.GROWTH_RATE*1);
+        assertEquals(1, testPlant.getAge());
+        assertFalse(testPlant.readyToSell());
+
+
+        testPlant.grow(testPlant.GROWTH_RATE*3);
+        assertEquals(3, testPlant.getAge());
+        assertTrue(testPlant.readyToSell());
+    }
 }
