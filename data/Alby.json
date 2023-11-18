@@ -1,0 +1,33 @@
+{
+    "owner": "Alby",
+    "wallet": 70,
+    "plants": [
+        {
+            "hydration": 90,
+            "name": "fern",
+            "type": "plant",
+            "age": 0,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        },
+        {
+            "hydration": 90,
+            "name": "lilly",
+            "type": "plant",
+            "age": 0,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        },
+        {
+            "hydration": 90,
+            "name": "cactus",
+            "type": "plant",
+            "age": 0,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        }
+    ],
+    "pots": 3,
+    "greenhouseTime": 20,
+    "debt": 10000
+}

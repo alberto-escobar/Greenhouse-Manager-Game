@@ -75,7 +75,7 @@ public class Game {
         } else if (command.equals("p")) {
             buyPlantCommand();
         } else if (command.equals("b")) {
-            //buyPotsCommand();
+            buyPotsCommand();
         } else if (command.equals("s")) {
             sellPlantCommand();
         } else if (command.equals("w")) {
@@ -87,7 +87,7 @@ public class Game {
         } else if (command.equals("h")) {
             System.out.println(
                     "press enter to update game, "
-                            + "b = buy seeds, p = buy plant, s = sell plant, w = water plant, save = save game, "
+                            + "b = buy pots, p = buy plant, s = sell plant, w = water plant, save = save game, "
                             + "d = pay debt");
         } else {
             System.out.println("invalid command, enter h for help");
@@ -117,6 +117,16 @@ public class Game {
         }
         System.out.println(plants);
 
+    }
+
+    // MODIFIES: this
+    //   EFFECT: Buys pots for Greenhouse.
+    public void buyPotsCommand() {
+        try {
+            greenhouse.buyPots();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // MODIFIES: this
