@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CactusTest {
-    Cactus testCactus;
+    Plant testCactus;
 
     @BeforeEach
     void runBefore() {
@@ -20,4 +20,18 @@ public class CactusTest {
         assertEquals("Cactus", testCactus.getType());
     }
 
+    @Test
+    void testSalePrice(){
+        testCactus.grow(testCactus.getGrowthRate() *2);
+        assertEquals(2, testCactus.getAge());
+        assertEquals(10, testCactus.salePrice());
+
+        testCactus.grow(testCactus.getGrowthRate() *4);
+        assertEquals(4, testCactus.getAge());
+        assertEquals(10, testCactus.salePrice());
+
+        testCactus.grow(testCactus.getGrowthRate() *6);
+        assertEquals(6, testCactus.getAge());
+        assertTrue(testCactus.salePrice() > 10);
+    }
 }

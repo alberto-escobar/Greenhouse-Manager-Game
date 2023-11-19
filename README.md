@@ -30,15 +30,18 @@ stream games like Minecraft and Animal Crossing.
 3. As a user, I want to be limited to the number of plants I have at a given moment by the number of pots I own
 4. As a user, I want to be able to buy more pots to allow me to grow more plants in the game
 5. **Seeds have been deprecated, user just buys plants that start at age zero**
+6. 1. As a user, I want the plant to be removed from the greenhouse if hydration reaches zero
+7. As a user, I want the option to buy a cactus.
+> The cactus plant grows slowly and requires less frequent watering.
+The cactus can be sold for a profit when it reaches a mature age, otherwise it is sold for a loss.
+8. As a user, I want to be able to plant a flower
+> The flower plant grows faster compared to the cactus but requires more frequent watering.
+    The flower can be sold for a profit when it reaches a mature age. otherwise it is sold for a loss.
+    When the flower is ready to be sold it blooms to a random color, that can influence the sale price.
+    The more rare the color it blooms to, the higher the sale price of the flower.
 
 ### Phase 3 (To be Implemented)
-1. As a user, I want the plant to be removed from the greenhouse if hydration reaches zero
-2. As a user, I want the option to buy a cactus.
-> The cactus plant grows slowly and requires less frequent watering. 
-The cactus can be sold for a profit when it reaches a mature age, otherwise it is sold for a loss.
-3. As a user, I want to be able to plant a flower
-> The flower plant grows faster compared to the cactus but requires more frequent watering.
-The flower can be sold for a profit when it reaches a mature age. otherwise it is sold for a loss.
-When the flower is ready to be sold it blooms to a random color, that can influence the sale price.
-The more rare the color it blooms to, the higher the sale price of the flower.
+1. GUI
+
+
 

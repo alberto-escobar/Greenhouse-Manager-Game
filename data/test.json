@@ -1,0 +1,34 @@
+{
+    "owner": "test",
+    "wallet": 70,
+    "plants": [
+        {
+            "hydration": 88,
+            "name": "aloe",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        },
+        {
+            "colour": "None",
+            "hydration": 92,
+            "name": "lilly",
+            "type": "Flower",
+            "age": 1,
+            "timeHydrated": 99,
+            "timePlanted": 0
+        },
+        {
+            "hydration": 93,
+            "name": "Agava",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 53,
+            "timePlanted": 53
+        }
+    ],
+    "pots": 3,
+    "greenhouseTime": 124,
+    "debt": 10000
+}

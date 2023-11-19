@@ -3,6 +3,8 @@ package ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import model.Flower;
 import model.Greenhouse;
 import model.Plant;
 import persistence.JsonReader;
@@ -104,7 +106,8 @@ public class ConsoleGame {
     //   EFFECT: outputs wallet amount, seed amount, and list of plants along with their age and hydration level to
     //           terminal.
     public void printGreenhouseCommand() {
-        String stats = "Debt: $" + greenhouse.getDebt()
+        String stats = "Day: " + Integer.toString(greenhouse.getDay())
+                + " Debt: $" + greenhouse.getDebt()
                 + " Wallet: $" + greenhouse.getWallet() + " AvailablePots: " + greenhouse.availablePots();
         System.out.println(stats);
         String plants = "";
@@ -112,8 +115,21 @@ public class ConsoleGame {
             plants = "No plants";
         }
         for (Plant plant : greenhouse.getPlants()) {
+
+
             plants = plants + plant.getName()
-                    + "(Age: " + plant.getAge() + " Hydration: " +  plant.getHydration() + ")   ";
+                    + ": ("
+                    + "Type: " + plant.getType()
+                    + "     Age: " + plant.getAge()
+                    + "     Hydration: " +  plant.getHydration()
+                    + "     Sale Price: " +  plant.salePrice();
+            if (plant.getType().equals("Flower")) {
+                Flower flower = (Flower) plant;
+                plants = plants
+                        + "     colour: " +  (flower.getColour());
+            }
+            plants = plants + ")\n";
+
         }
         System.out.println(plants);
 
@@ -132,10 +148,41 @@ public class ConsoleGame {
     // MODIFIES: this
     //   EFFECT: Buys baby plant in Greenhouse.
     public void buyPlantCommand() {
-        System.out.println("Enter name for new plant:");
+        System.out.println("Do you want to buy a cactus or a flower?");
+        String type = input.next();
+        System.out.println(type);
+        try {
+            if (type.equals("cactus")) {
+                this.buyCactusCommand();
+            } else if (type.equals("flower")) {
+                this.buyFlowerCommand();
+            } else {
+                System.out.println("Unknown plant.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // MODIFIES: this
+    //   EFFECT: Buys baby plant in Greenhouse.
+    public void buyCactusCommand() {
+        System.out.println("Enter name for new cactus:");
         String name = input.next();
         try {
-            greenhouse.buyPlant(name);
+            greenhouse.buyCactus(name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // MODIFIES: this
+    //   EFFECT: Buys baby plant in Greenhouse.
+    public void buyFlowerCommand() {
+        System.out.println("Enter name for new flower:");
+        String name = input.next();
+        try {
+            greenhouse.buyFlower(name);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -187,7 +234,7 @@ public class ConsoleGame {
 
     public void payDebtCommand() {
         try {
-            System.out.println("How much of debt do you want to pay off?");
+            System.out.println("How much debt do you want to pay off?");
             String amount = input.next();
             this.greenhouse.payDebt(Integer.valueOf(amount));
         } catch (Exception e) {

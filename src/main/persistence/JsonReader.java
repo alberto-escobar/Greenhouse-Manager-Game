@@ -1,5 +1,7 @@
 package persistence;
 
+import model.Cactus;
+import model.Flower;
 import model.Greenhouse;
 import model.Plant;
 import org.json.JSONArray;
@@ -74,7 +76,15 @@ public class JsonReader {
         int timeHydrated = jsonObject.getInt("timeHydrated");
         int age = jsonObject.getInt("age");
         int hydration = jsonObject.getInt("hydration");
-        Plant plant = new Plant(name, type, timePlanted, timeHydrated, age, hydration);
+        Plant plant;
+        if (type.equals("Flower")) {
+            String colour = jsonObject.getString("colour");
+            plant = new Flower(name, type, timePlanted, timeHydrated, age, hydration, colour);
+        } else if (type.equals("Cactus")) {
+            plant = new Cactus(name, type, timePlanted, timeHydrated, age, hydration);
+        } else {
+            plant = new Plant(name, type, timePlanted, timeHydrated, age, hydration);
+        }
         return plant;
     }
 }

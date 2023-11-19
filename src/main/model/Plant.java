@@ -15,7 +15,7 @@ public class Plant implements Writable {
 
     protected int growthRate = 120;
     protected int dehydrationRate = 5;
-    protected int minAgeToSell = 1;
+    protected int minAgeToSell = 2;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this

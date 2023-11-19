@@ -23,6 +23,7 @@ public class Greenhouse implements Writable {
 
     private int greenhouseTime;
     private long referenceTime;
+    private int day;
 
 
     // MODIFIES: this
@@ -38,7 +39,8 @@ public class Greenhouse implements Writable {
 
     }
 
-    public Greenhouse(String owner, int wallet, int debt, int pots, int greenhouseTime, long referenceTime, List<Plant> plants) {
+    public Greenhouse(String owner,
+                      int wallet, int debt, int pots, int greenhouseTime, long referenceTime, List<Plant> plants) {
         this.owner = owner;
         this.wallet = wallet;
         this.debt = debt;
@@ -46,6 +48,15 @@ public class Greenhouse implements Writable {
         this.greenhouseTime = greenhouseTime;
         this.referenceTime = referenceTime - (greenhouseTime * 1000);
         this.plants = plants;
+        updateDay();
+    }
+
+    public void updateDay() {
+        this.day = this.greenhouseTime / 10;
+    }
+
+    public int getDay() {
+        return day;
     }
 
     // REQUIRES: currentTime > greenhouseTime
@@ -55,6 +66,7 @@ public class Greenhouse implements Writable {
     public void updateTime(long currentTime) {
         greenhouseTime = (int) (currentTime - referenceTime) / 1000;
         this.updatePlants();
+        this.updateDay();
     }
 
     // MODIFIES: this
@@ -96,11 +108,58 @@ public class Greenhouse implements Writable {
         }
     }
 
+    // MODIFIES: this
+    //   EFFECT: creates a Cactus object with a name and timePlanted equal to name and greenhouseTime and adds it to
+    //           Plants.
+    //           Throws InsufficientFundsException if wallet < 10.
+    //           Throws DuplicatePlantException if there is already a plant in plants with the same name as parameter
+    //           Throws InsufficientSpaceException if this.availablePots() equals 0
+    public void buyCactus(String name)
+            throws InsufficientFundsException, InsufficientSpaceException, DuplicatePlantException {
+        if (this.wallet >= 10) {
+            if (!Objects.isNull(this.getPlant(name))) {
+                throw new DuplicatePlantException();
+            }
+            if (this.availablePots() == 0) {
+                throw new InsufficientSpaceException();
+            }
+            this.plants.add(new Cactus(name, this.greenhouseTime));
+            this.wallet -= 10;
+        } else {
+            throw new InsufficientFundsException();
+        }
+    }
+
+    // MODIFIES: this
+    //   EFFECT: creates a Flower object with a name and timePlanted equal to name and greenhouseTime and adds it to
+    //           Plants.
+    //           Throws InsufficientFundsException if wallet < 10.
+    //           Throws DuplicatePlantException if there is already a plant in plants with the same name as parameter
+    //           Throws InsufficientSpaceException if this.availablePots() equals 0
+    public void buyFlower(String name)
+            throws InsufficientFundsException, InsufficientSpaceException, DuplicatePlantException {
+        if (this.wallet >= 10) {
+            if (!Objects.isNull(this.getPlant(name))) {
+                throw new DuplicatePlantException();
+            }
+            if (this.availablePots() == 0) {
+                throw new InsufficientSpaceException();
+            }
+            this.plants.add(new Flower(name, this.greenhouseTime));
+            this.wallet -= 50;
+        } else {
+            throw new InsufficientFundsException();
+        }
+    }
+
     // REQUIRES: nothing
     // MODIFIES: this
     //   EFFECT: executes grow method on each plant in plants using greenhouseTime
     public void updatePlants() {
         for (Plant plant : plants) {
+            if (plant.getHydration() == 0) {
+                this.plants.remove(plant);
+            }
             plant.grow(this.greenhouseTime);
         }
     }
