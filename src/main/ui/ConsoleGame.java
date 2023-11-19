@@ -9,7 +9,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 // Greenhouse manager game
-public class Game {
+public class ConsoleGame {
     private Scanner input;
     Greenhouse greenhouse;
     private String savePath;
@@ -18,7 +18,7 @@ public class Game {
 
     // MODIFIES: this
     //   EFFECT: creates Game object, initializes scanner for keyboard commands, and opens the welcome prompt.
-    public Game() {
+    public ConsoleGame() {
         this.input = new Scanner(System.in);
         input.useDelimiter("\n");
         System.out.println("Welcome to Greenhouse Manger 2023! \n Press s to start new game! press l to load save!");
@@ -193,5 +193,9 @@ public class Game {
         } catch (Exception e) {
             System.out.println("uh oh");
         }
+    }
+
+    public static void main(String[] args) {
+        new ConsoleGame();
     }
 }
