@@ -5,27 +5,24 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.util.List;
-
 public class Plant implements Writable {
-    String name;
-    String type;
-    int age;
-    int hydration;
+    protected String name;
+    protected String type;
+    protected int age;
+    protected int hydration;
+    protected int timePlanted;
+    protected int timeHydrated;
 
-    private int timePlanted;
-    private int timeHydrated;
-
-    static final int GROWTH_RATE = 120;
-    static final int DEHYDRATION_RATE = 5;
-    static final int MIN_AGE_TO_SELL = 2;
+    protected int growthRate = 120;
+    protected int dehydrationRate = 5;
+    protected int minAgeToSell = 1;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this
     //   EFFECT: creates a Plant object with name, 100% hydration, and 0 months of age.
     public Plant(String name, int currentTime) {
         this.name = name;
-        this.type = "plant";
+        this.type = "Plant";
         this.timePlanted = currentTime;
         this.timeHydrated = currentTime;
         this.age = 0;
@@ -47,10 +44,10 @@ public class Plant implements Writable {
     //           hydration level reduces by 1 for every 10 second increment since plant was watered
     public void grow(int currentTime) {
         int timePassed = currentTime - this.timePlanted;
-        this.age = timePassed / GROWTH_RATE;
+        this.age = timePassed / growthRate;
 
         int timeSinceLastWater = currentTime - this.timeHydrated;
-        this.hydration = 100 - timeSinceLastWater / DEHYDRATION_RATE;
+        this.hydration = 100 - timeSinceLastWater / dehydrationRate;
         if (this.hydration < 0) {
             this.hydration = 0;
         }
@@ -65,7 +62,7 @@ public class Plant implements Writable {
     }
 
     public int salePrice() {
-        if (age < MIN_AGE_TO_SELL) {
+        if (age < minAgeToSell) {
             return 10;
         } else {
             return 20 * this.age + 10;
@@ -73,7 +70,7 @@ public class Plant implements Writable {
     }
 
     public boolean readyToSell() {
-        if (age < MIN_AGE_TO_SELL) {
+        if (age < minAgeToSell) {
             return false;
         } else {
             return true;
@@ -115,5 +112,17 @@ public class Plant implements Writable {
 
     public int getTimeHydrated() {
         return this.timeHydrated;
+    }
+
+    public int getGrowthRate() {
+        return growthRate;
+    }
+
+    public int getDehydrationRate() {
+        return dehydrationRate;
+    }
+
+    public int getMinAgeToSell() {
+        return minAgeToSell;
     }
 }

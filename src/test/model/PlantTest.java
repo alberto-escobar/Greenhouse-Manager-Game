@@ -21,48 +21,48 @@ public class PlantTest {
 
     @Test
     void testGrow() {
-        testPlant.grow(testPlant.DEHYDRATION_RATE*2);
+        testPlant.grow(testPlant.getDehydrationRate() *2);
         assertEquals(98, testPlant.getHydration());
         assertEquals(0, testPlant.getAge());
 
-        testPlant.grow(testPlant.GROWTH_RATE*2);
+        testPlant.grow(testPlant.getGrowthRate() *2);
         assertEquals(2, testPlant.getAge());
     }
 
     @Test
     void testMinimumHydrationLevel(){
-        testPlant.grow(testPlant.DEHYDRATION_RATE*1000);
+        testPlant.grow(testPlant.getDehydrationRate() *1000);
         assertEquals(0, testPlant.getHydration());
     }
 
     @Test
     void testWaterPlant(){
-         testPlant.grow(testPlant.DEHYDRATION_RATE*50);
+         testPlant.grow(testPlant.getDehydrationRate() *50);
          assertEquals(50, testPlant.getHydration());
-         testPlant.waterPlant(testPlant.DEHYDRATION_RATE*50+1);
+         testPlant.waterPlant(testPlant.getDehydrationRate() *50+1);
          assertEquals(100, testPlant.getHydration());
      }
 
     @Test
     void testSalePrice(){
-        testPlant.grow(testPlant.GROWTH_RATE*1);
+        testPlant.grow(testPlant.getGrowthRate() *1);
         assertEquals(1, testPlant.getAge());
         assertEquals(10, testPlant.salePrice());
 
 
-        testPlant.grow(testPlant.GROWTH_RATE*3);
+        testPlant.grow(testPlant.getGrowthRate() *3);
         assertEquals(3, testPlant.getAge());
         assertEquals(70, testPlant.salePrice());
     }
 
     @Test
     void testReadyToSell(){
-        testPlant.grow(testPlant.GROWTH_RATE*1);
+        testPlant.grow(testPlant.getGrowthRate() *1);
         assertEquals(1, testPlant.getAge());
         assertFalse(testPlant.readyToSell());
 
 
-        testPlant.grow(testPlant.GROWTH_RATE*3);
+        testPlant.grow(testPlant.getGrowthRate() *3);
         assertEquals(3, testPlant.getAge());
         assertTrue(testPlant.readyToSell());
     }

@@ -60,7 +60,7 @@ class JsonWriterTest extends JsonTest {
             checkGreenhouse("General", 0, 10000, 4, 140, 1, gh);
 
             Plant testLilly = gh.getPlant("Lilly");
-            checkPlant("Lilly", "plant", 1, 30, 0, 0, testLilly);
+            checkPlant("Lilly", "plant", 1, 72, 0, 0, testLilly);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         } catch (Exception e) {

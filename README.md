@@ -31,7 +31,7 @@ stream games like Minecraft and Animal Crossing.
 4. As a user, I want to be able to buy more pots to allow me to grow more plants in the game
 5. **Seeds have been deprecated, user just buys plants that start at age zero**
 
-### Phase 3 (To be Implemented)5
+### Phase 3 (To be Implemented)
 1. As a user, I want the plant to be removed from the greenhouse if hydration reaches zero
 2. As a user, I want the option to buy a cactus.
 > The cactus plant grows slowly and requires less frequent watering. 

@@ -2,7 +2,7 @@
     "owner": "General",
     "wallet": 0,
     "plants": [{
-        "hydration": 30,
+        "hydration": 72,
         "name": "Lilly",
         "type": "plant",
         "age": 1,

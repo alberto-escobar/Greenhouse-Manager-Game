@@ -4,7 +4,6 @@ import model.exceptions.DuplicatePlantException;
 import model.exceptions.InsufficientFundsException;
 import model.exceptions.InsufficientSpaceException;
 import model.exceptions.InvalidAmountException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -147,11 +146,11 @@ public class GreenhouseTest {
 
 
         Plant testLilly = testGreenhouse.getPlant("Lilly");
-        assertEquals( 120 / testLilly.GROWTH_RATE, testLilly.getAge());
-        assertEquals( 100 - (120 / testLilly.DEHYDRATION_RATE), testLilly.getHydration());
+        assertEquals( 120 / testLilly.getGrowthRate(), testLilly.getAge());
+        assertEquals( 100 - (120 / testLilly.getDehydrationRate()), testLilly.getHydration());
         Plant testCactus = testGreenhouse.getPlant("Cactus");
-        assertEquals( 60 / testCactus.GROWTH_RATE, testCactus.getAge());
-        assertEquals( 100 - (60 / testCactus.DEHYDRATION_RATE), testCactus.getHydration());
+        assertEquals( 60 / testCactus.getGrowthRate(), testCactus.getAge());
+        assertEquals( 100 - (60 / testCactus.getDehydrationRate()), testCactus.getHydration());
     }
 
     //test that plants are waters when using correct name and no existing name
@@ -173,7 +172,7 @@ public class GreenhouseTest {
         assertTrue(testGreenhouse.waterPlant("Cactus"));
 
         Plant testLilly = testGreenhouse.getPlant("Lilly");
-        assertEquals( 100 - (120 / testLilly.DEHYDRATION_RATE), testLilly.getHydration());
+        assertEquals( 100 - (120 / testLilly.getDehydrationRate()), testLilly.getHydration());
         Plant testCactus = testGreenhouse.getPlant("Cactus");
         assertEquals( 100, testCactus.getHydration());
     }
