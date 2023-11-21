@@ -44,7 +44,7 @@ public class ToolPanel extends JPanel {
         try {
             this.gh.buyCactus("Cactus");
         } catch (Exception e) {
-            //message popup
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class ToolPanel extends JPanel {
         try {
             this.gh.buyFlower("Flower");
         } catch (Exception e) {
-            //message popup
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class ToolPanel extends JPanel {
         try {
             this.gh.buyPots();
         } catch (Exception e) {
-            //message popup
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
@@ -68,9 +68,12 @@ public class ToolPanel extends JPanel {
 
     public void payDebtCommand() {
         try {
-            this.gh.payDebt(100);
+            String userInput = JOptionPane.showInputDialog(null, "Enter amount you want to pay:");
+            if (userInput.length() > 0) {
+                this.gh.payDebt(Integer.parseInt((userInput)));
+            }
         } catch (Exception e) {
-            //message popup
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }

@@ -19,7 +19,7 @@ public class PlantsPanel extends JPanel {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         for (Plant p : ghPlants) {
-            PlantPanel panel = new PlantPanel(p);
+            PlantPanel panel = new PlantPanel(p,gh);
             panelList.add(panel);
             mainPanel.add(panel);
         }
@@ -34,11 +34,12 @@ public class PlantsPanel extends JPanel {
             remakePanel();
         } else {
             for (PlantPanel panel : panelList) {
-                if (panel.checkHydration()) {
-                    panel.update();
-                } else {
-                    panelList.remove(panel);
-                }
+                panel.update();
+//                if (panel.checkHydration()) {
+//                    panel.update();
+//                } else {
+//                    panelList.remove(panel);
+//                }
             }
         }
     }
@@ -51,7 +52,7 @@ public class PlantsPanel extends JPanel {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         for (Plant p : ghPlants) {
-            PlantPanel panel = new PlantPanel(p);
+            PlantPanel panel = new PlantPanel(p,gh);
             panelList.add(panel);
             mainPanel.add(panel);
         }
