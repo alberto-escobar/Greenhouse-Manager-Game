@@ -35,11 +35,6 @@ public class PlantsPanel extends JPanel {
         } else {
             for (PlantPanel panel : panelList) {
                 panel.update();
-//                if (panel.checkHydration()) {
-//                    panel.update();
-//                } else {
-//                    panelList.remove(panel);
-//                }
             }
         }
     }

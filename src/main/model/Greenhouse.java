@@ -156,11 +156,13 @@ public class Greenhouse implements Writable {
     // MODIFIES: this
     //   EFFECT: executes grow method on each plant in plants using greenhouseTime
     public void updatePlants() {
-        for (Plant plant : plants) {
+        for (int i = 0; i < this.plants.size(); i++) {
+            Plant plant = this.plants.get(i);
             if (plant.getHydration() == 0) {
-                this.plants.remove(plant);
+                this.plants.remove(i);
+            } else {
+                plant.grow(this.greenhouseTime);
             }
-            plant.grow(this.greenhouseTime);
         }
     }
 

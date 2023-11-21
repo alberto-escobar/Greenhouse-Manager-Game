@@ -5,6 +5,7 @@ import model.Greenhouse;
 import model.Plant;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.security.PrivateKey;
@@ -43,11 +44,12 @@ public class PlantPanel extends JPanel {
         hydrationLabel.setText(HYDRATION + plant.getHydration());
         ageLabel.setText(AGE + plant.getAge());
         salePriceLabel.setText(SALE_PRICE + plant.salePrice());
+        if (plant.getHydration() < 15) {
+            setBackground(ColorUIResource.red);
+        } else {
+            setBackground(UIManager.getColor ("Panel.background"));
+        }
         repaint();
-    }
-
-    public boolean checkHydration() {
-        return plant.getHydration() > 0;
     }
 
     private String getPlantType() {
