@@ -46,7 +46,7 @@ public class Greenhouse implements Writable {
         this.debt = debt;
         this.pots = pots;
         this.greenhouseTime = greenhouseTime;
-        this.referenceTime = referenceTime - (greenhouseTime * 1000);
+        this.referenceTime = referenceTime - ((long) greenhouseTime * 1000);
         this.plants = plants;
         updateDay();
     }
@@ -64,7 +64,7 @@ public class Greenhouse implements Writable {
     //   EFFECT: updates the epoch time of the green house by taking the difference between the current epoch time in
     //           milliseconds and the reference epoch time in milliseconds and dividing by 1000
     public void updateTime(long currentTime) {
-        greenhouseTime = (int) (currentTime - referenceTime) / 1000;
+        greenhouseTime = (int) (currentTime - referenceTime) / 200;
         this.updatePlants();
         this.updateDay();
     }
@@ -222,10 +222,7 @@ public class Greenhouse implements Writable {
 
     //   EFFECT: Returns false if debt is greater than 0, otherwise return true.
     public boolean isDebtPaidOff() {
-        if (this.debt > 0) {
-            return false;
-        }
-        return true;
+        return this.debt <= 0;
     }
 
     //   EFFECTS: returns greenhouse object as JSON object

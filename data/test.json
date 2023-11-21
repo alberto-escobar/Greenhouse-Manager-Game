@@ -3,32 +3,32 @@
     "wallet": 70,
     "plants": [
         {
-            "hydration": 88,
+            "hydration": 60,
             "name": "aloe",
             "type": "Cactus",
-            "age": 0,
+            "age": 2,
             "timeHydrated": 0,
             "timePlanted": 0
         },
         {
-            "colour": "None",
-            "hydration": 92,
+            "colour": "Pink",
+            "hydration": 99,
             "name": "lilly",
             "type": "Flower",
-            "age": 1,
-            "timeHydrated": 99,
+            "age": 4,
+            "timeHydrated": 399,
             "timePlanted": 0
         },
         {
-            "hydration": 93,
+            "hydration": 66,
             "name": "Agava",
             "type": "Cactus",
-            "age": 0,
+            "age": 1,
             "timeHydrated": 53,
             "timePlanted": 53
         }
     ],
     "pots": 3,
-    "greenhouseTime": 124,
+    "greenhouseTime": 402,
     "debt": 10000
 }

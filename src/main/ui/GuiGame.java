@@ -6,23 +6,34 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUIGame extends JFrame {
+public class GuiGame extends JFrame {
     Greenhouse gh;
     ScorePanel sp;
+    ToolPanel tp;
+    PlantsPanel pp;
 
     // Constructs main window
     // effects: sets up window in which Green House game will be played
-    public GUIGame() {
+    public GuiGame() {
         //Create and set up the window.
         super("HelloWorldSwing");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
 
         long currentTime = System.currentTimeMillis();
         gh = new Greenhouse("test", currentTime);
         sp = new ScorePanel(gh);
+        tp = new ToolPanel(gh);
+        pp = new PlantsPanel(gh);
 
         //Add the ubiquitous "Hello World" label.
-        add(sp);
+        mainPanel.add(sp);
+        mainPanel.add(tp);
+        mainPanel.add(pp);
+        add(mainPanel);
+
 
         //Display the window.
         this.pack();
@@ -41,7 +52,7 @@ public class GUIGame extends JFrame {
                 long currentTime = System.currentTimeMillis();
                 gh.updateTime(currentTime);
                 sp.update();
-                //update plant panel
+                pp.update();
             }
         });
 
@@ -49,6 +60,6 @@ public class GUIGame extends JFrame {
     }
 
     public static void main(String[] args) {
-        new GUIGame();
+        new GuiGame();
     }
 }

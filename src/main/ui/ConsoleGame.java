@@ -39,6 +39,7 @@ public class ConsoleGame {
             System.out.println("Please input a name of saved greenhouse");
             String name = input.next();
             savePath = "./data/" + name + ".json";
+            jsonWriter = new JsonWriter(savePath);
             loadCommand(savePath);
             run();
         } else {
@@ -106,7 +107,7 @@ public class ConsoleGame {
     //   EFFECT: outputs wallet amount, seed amount, and list of plants along with their age and hydration level to
     //           terminal.
     public void printGreenhouseCommand() {
-        String stats = "Day: " + Integer.toString(greenhouse.getDay())
+        String stats = "Day: " + greenhouse.getDay()
                 + " Debt: $" + greenhouse.getDebt()
                 + " Wallet: $" + greenhouse.getWallet() + " AvailablePots: " + greenhouse.availablePots();
         System.out.println(stats);

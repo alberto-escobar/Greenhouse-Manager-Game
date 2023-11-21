@@ -70,11 +70,7 @@ public class Plant implements Writable {
     }
 
     public boolean readyToSell() {
-        if (age < minAgeToSell) {
-            return false;
-        } else {
-            return true;
-        }
+        return age >= minAgeToSell;
     }
 
     //   EFFECT: returns plant object as JSON object

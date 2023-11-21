@@ -55,7 +55,7 @@ public class Flower extends Plant {
 
     //   EFFECT: Creates a list of possible blooming colors from order of least to most rare.
     private List<String> generateColourList() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Red");
         list.add("Yellow");
         list.add("Pink");
