@@ -46,7 +46,7 @@ public class Greenhouse implements Writable {
         this.debt = debt;
         this.pots = pots;
         this.greenhouseTime = greenhouseTime;
-        this.referenceTime = referenceTime - ((long) greenhouseTime * 1000);
+        this.referenceTime = referenceTime - ((long) greenhouseTime * 200);
         this.plants = plants;
         updateDay();
     }

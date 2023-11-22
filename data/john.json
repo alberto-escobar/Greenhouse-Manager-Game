@@ -1,0 +1,34 @@
+{
+    "owner": "john",
+    "wallet": 10,
+    "plants": [
+        {
+            "hydration": 71,
+            "name": "325DH",
+            "type": "Cactus",
+            "age": 1,
+            "timeHydrated": 8,
+            "timePlanted": 8
+        },
+        {
+            "hydration": 72,
+            "name": "YCC5K",
+            "type": "Cactus",
+            "age": 1,
+            "timeHydrated": 12,
+            "timePlanted": 12
+        },
+        {
+            "colour": "None",
+            "hydration": 95,
+            "name": "KW1OG",
+            "type": "Flower",
+            "age": 2,
+            "timeHydrated": 283,
+            "timePlanted": 65
+        }
+    ],
+    "pots": 3,
+    "greenhouseTime": 299,
+    "debt": 9980
+}
