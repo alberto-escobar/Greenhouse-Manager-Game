@@ -4,11 +4,14 @@ import model.Flower;
 import model.Greenhouse;
 import model.Plant;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.security.PrivateKey;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class PlantPanel extends JPanel {
     private Plant plant;
@@ -17,7 +20,7 @@ public class PlantPanel extends JPanel {
     static final String HYDRATION = "Hydration: ";
     static final String AGE = "Age: ";
     static final String SALE_PRICE = "Sale Price: ";
-
+    private JLabel imageLabel;
     private JLabel typeLabel;
     private JLabel hydrationLabel;
     private JLabel ageLabel;
@@ -27,11 +30,13 @@ public class PlantPanel extends JPanel {
         this.plant = p;
         this.gh = gh;
 
+        imageLabel = new JLabel(generateImage());
         typeLabel = new JLabel(getPlantType());
         hydrationLabel = new JLabel(HYDRATION + plant.getHydration());
         ageLabel = new JLabel(AGE + plant.getAge());
         salePriceLabel = new JLabel(SALE_PRICE + plant.salePrice());
 
+        add(imageLabel);
         add(typeLabel);
         add(hydrationLabel);
         add(ageLabel);
@@ -40,6 +45,7 @@ public class PlantPanel extends JPanel {
     }
 
     public void update() {
+        imageLabel.setIcon(generateImage());
         typeLabel.setText(getPlantType());
         hydrationLabel.setText(HYDRATION + plant.getHydration());
         ageLabel.setText(AGE + plant.getAge());
@@ -47,9 +53,36 @@ public class PlantPanel extends JPanel {
         if (plant.getHydration() < 15) {
             setBackground(ColorUIResource.red);
         } else {
-            setBackground(UIManager.getColor ("Panel.background"));
+            setBackground(UIManager.getColor("Panel.background"));
         }
         repaint();
+    }
+
+    private ImageIcon generateImage() {
+        int imageAge = plant.getAge();
+        if (imageAge > plant.getMinAgeToSell()) {
+            imageAge = plant.getMinAgeToSell();
+        }
+
+        String imageColour = "";
+        if (plant.getType().equals("Flower")) {
+            Flower flower = (Flower) plant;
+            if (!flower.getColour().equals("None")) {
+                imageColour = flower.getColour();
+            }
+        }
+        String filepath = "./resources/" + plant.getType() + imageAge + imageColour + ".png";
+        int width = 100;
+        int height = 100;
+        try {
+            ImageIcon plantIcon = new ImageIcon(filepath);
+            Image image = plantIcon.getImage();
+            Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            plantIcon = new ImageIcon(resizedImage);
+            return plantIcon;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private String getPlantType() {
@@ -69,13 +102,21 @@ public class PlantPanel extends JPanel {
     private void addPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem waterPlantOption  = new JMenuItem("Water Plant");
-        waterPlantOption.addActionListener(e -> {
-            this.gh.waterPlant(plant.getName());
+        waterPlantOption.addActionListener(a -> {
+            try {
+                this.gh.waterPlant(plant.getName());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         });
 
         JMenuItem sellPlantOption = new JMenuItem("Sell Plant");
-        sellPlantOption.addActionListener(e -> {
-            this.gh.sellPlant(plant.getName());
+        sellPlantOption.addActionListener(a -> {
+            try {
+                this.gh.sellPlant(plant.getName());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         });
 
         popupMenu.add(waterPlantOption);

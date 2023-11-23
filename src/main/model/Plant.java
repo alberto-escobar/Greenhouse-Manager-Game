@@ -16,6 +16,7 @@ public class Plant implements Writable {
     protected int growthRate = 120;
     protected int dehydrationRate = 5;
     protected int minAgeToSell = 2;
+    protected int maxAgeToValue = 10;
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this
@@ -64,6 +65,8 @@ public class Plant implements Writable {
     public int salePrice() {
         if (age < minAgeToSell) {
             return 10;
+        } else if (age > maxAgeToValue) {
+            return 20 * this.maxAgeToValue + 10;
         } else {
             return 20 * this.age + 10;
         }

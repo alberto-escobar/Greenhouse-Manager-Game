@@ -1,25 +1,8 @@
 {
     "owner": "alberto",
-    "wallet": 139990000,
-    "plants": [
-        {
-            "hydration": 19,
-            "name": "42UMS",
-            "type": "Cactus",
-            "age": 6,
-            "timeHydrated": 390,
-            "timePlanted": 6
-        },
-        {
-            "hydration": 37,
-            "name": "Q3HP1",
-            "type": "Cactus",
-            "age": 3,
-            "timeHydrated": 569,
-            "timePlanted": 569
-        }
-    ],
-    "pots": 3,
-    "greenhouseTime": 1204,
+    "wallet": 139990730,
+    "plants": [],
+    "pots": 9,
+    "greenhouseTime": 2253,
     "debt": 0
 }

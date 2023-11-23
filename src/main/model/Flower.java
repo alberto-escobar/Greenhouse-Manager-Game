@@ -32,12 +32,7 @@ public class Flower extends Plant {
 
     @Override
     public int salePrice() {
-        int salePrice;
-        if (age < minAgeToSell) {
-            salePrice = 10;
-        } else {
-            salePrice = 20 * this.age + 10;
-        }
+        int salePrice = super.salePrice();
         if (!this.colour.equals("None")) {
             return (salePrice * (this.colourList.indexOf(this.colour) + 1));
         } else {

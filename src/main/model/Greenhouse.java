@@ -25,6 +25,8 @@ public class Greenhouse implements Writable {
     private long referenceTime;
     private int day;
 
+    private int gameSpeed = 100;
+
 
     // MODIFIES: this
     //   EFFECT: creates Greenhouse object with plants being an empty list, wallet with 100 dollars, and 0 seeds.
@@ -46,7 +48,7 @@ public class Greenhouse implements Writable {
         this.debt = debt;
         this.pots = pots;
         this.greenhouseTime = greenhouseTime;
-        this.referenceTime = referenceTime - ((long) greenhouseTime * 200);
+        this.referenceTime = referenceTime - ((long) greenhouseTime * gameSpeed);
         this.plants = plants;
         updateDay();
     }
@@ -64,7 +66,7 @@ public class Greenhouse implements Writable {
     //   EFFECT: updates the epoch time of the green house by taking the difference between the current epoch time in
     //           milliseconds and the reference epoch time in milliseconds and dividing by 1000
     public void updateTime(long currentTime) {
-        greenhouseTime = (int) (currentTime - referenceTime) / 200;
+        greenhouseTime = (int) (currentTime - referenceTime) / gameSpeed;
         this.updatePlants();
         this.updateDay();
     }
@@ -169,26 +171,25 @@ public class Greenhouse implements Writable {
     // MODIFIES: this
     //   EFFECT: finds plant based on given name in plants list and executes waterPlant method using greenhouseTime
     //           and returns true. If no plant exists with the given name in plants list, the method returns false.
-    public boolean waterPlant(String name) {
+    public void waterPlant(String name) throws NonexistentPlantException {
         Plant plant = getPlant(name);
-        if (!Objects.isNull(plant)) {
-            plant.waterPlant(this.greenhouseTime);
-            return true;
+        if (plant == null) {
+            throw new NonexistentPlantException();
         }
-        return false;
+        plant.waterPlant(this.greenhouseTime);
     }
 
     // MODIFIES: this
     //   EFFECT: if the name matches a plant with the same name, the plant is removed from the Greenhouse, sale price is
     //           calculated based on plant's age, and added to wallet, and method returns true. If no plant with given
     //           name exists in plants list, the method returns false.
-    public boolean sellPlant(String name) {
+    public void sellPlant(String name) throws NonexistentPlantException {
         Plant plant = this.getPlant(name);
-        if (this.plants.remove(plant)) {
-            wallet += plant.salePrice();
-            return true;
+        if (plant == null) {
+            throw new NonexistentPlantException();
         }
-        return false;
+        this.plants.remove(plant);
+        wallet += plant.salePrice();
     }
 
     //   EFFECT: Returns Plant object in plants list with matching name returns null, if no plant of that name exists.

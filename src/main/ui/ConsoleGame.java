@@ -206,9 +206,12 @@ public class ConsoleGame {
     public void waterPlantCommand() {
         System.out.println("Enter name of plant to water:");
         String name = input.next();
-        if (!greenhouse.waterPlant(name)) {
-            System.out.println("Plant does not exist");
+        try {
+            greenhouse.waterPlant(name);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+
     }
 
     public void saveCommand() {
