@@ -54,16 +54,4 @@ public class PlantTest {
         assertEquals(3, testPlant.getAge());
         assertEquals(70, testPlant.salePrice());
     }
-
-    @Test
-    void testReadyToSell(){
-        testPlant.grow(testPlant.getGrowthRate() *1);
-        assertEquals(1, testPlant.getAge());
-        assertFalse(testPlant.readyToSell());
-
-
-        testPlant.grow(testPlant.getGrowthRate() *3);
-        assertEquals(3, testPlant.getAge());
-        assertTrue(testPlant.readyToSell());
-    }
 }

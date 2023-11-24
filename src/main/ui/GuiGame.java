@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+//Green house manager GUI game
 public class GuiGame extends JFrame {
     Greenhouse gh;
     JPanel mainPanel;
@@ -15,12 +16,12 @@ public class GuiGame extends JFrame {
     ToolPanel tp;
     PlantsPanel pp;
 
-    // Constructs main window
-    // effects: sets up window in which Green House game will be played
+    // MODIFIES: this
+    //  EFFECTS: sets up window in which Green House game will be played
     public GuiGame() {
-        //Create and set up the window.
         super("Greenhouse Manager 2023");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
@@ -38,15 +39,36 @@ public class GuiGame extends JFrame {
         add(mainPanel);
         this.pack();
         this.setVisible(true);
+        this.setTheme();
     }
 
+    // MODIFIES: this
+    //  EFFECTS: sets up JFrame to have default theme used in windows.
+    private void setTheme() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // MODIFIES: this
+    //  EFFECTS: asks user for a name and creates a new Greenhouse and sets up associated game panels.
     private void newGameCommand() {
         String name = JOptionPane.showInputDialog(null, "Please enter name for new game:");
         long currentTime = System.currentTimeMillis();
         gh = new Greenhouse(name, currentTime);
         mainPanel.removeAll();
-        createGamePanel(gh);
+        createGamePanels(gh);
     }
+
+    // MODIFIES: this
+    //  EFFECTS: asks user for a name of save file and load Greenhouse file and sets up associated game panels.
 
     private void loadGameCommand() {
         String name = JOptionPane.showInputDialog(null, "Please enter name of game save to load:");
@@ -56,40 +78,43 @@ public class GuiGame extends JFrame {
             this.gh = jsonReader.read();
 
             mainPanel.removeAll();
-            createGamePanel(gh);
+            createGamePanels(gh);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to load following file:\n" + savePath);
         }
     }
 
-    private void createGamePanel(Greenhouse gh) {
-        //create game panels
+    // MODIFIES: this
+    //  EFFECTS: Creates game panels based on Greenhouse
+    private void createGamePanels(Greenhouse gh) {
         sp = new ScorePanel(gh);
         tp = new ToolPanel(gh);
         pp = new PlantsPanel(gh);
 
-        //Add game panels to main panel
         mainPanel.add(sp);
         mainPanel.add(tp);
         mainPanel.add(pp);
         addTimer();
 
-        //resize window to fit panels
         this.pack();
     }
 
-    // Set up timer
-    // modifies: none
-    // effects:  initializes a timer that updates game each
-    //           INTERVAL milliseconds
+    // MODIFIES: this
+    //  EFFECTS: updates game panels.
+    private void updateGamePanels() {
+        long currentTime = System.currentTimeMillis();
+        gh.updateTime(currentTime);
+        sp.update();
+        pp.update();
+    }
+
+    // MODIFIES: none
+    //  EFFECTS:  initializes a timer that updates greenhouse and associated game panels every 100 milliseconds.
     private void addTimer() {
         Timer t = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                long currentTime = System.currentTimeMillis();
-                gh.updateTime(currentTime);
-                sp.update();
-                pp.update();
+                updateGamePanels();
             }
         });
 

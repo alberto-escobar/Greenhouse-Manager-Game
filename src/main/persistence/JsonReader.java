@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 // Represents a writer that reads JSON representation of greenhouse to greenhouse object in game
-// Citation: JsonSerialization Demon
+// Inspired by: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonReader {
-    private String source;
+    private final String source;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
@@ -38,7 +38,7 @@ public class JsonReader {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
+            stream.forEach(contentBuilder::append);
         }
 
         return contentBuilder.toString();
@@ -53,8 +53,7 @@ public class JsonReader {
         int greenhouseTime = jsonObject.getInt("greenhouseTime");
         long currentTime = System.currentTimeMillis();
         List<Plant> plants = parsePlants(jsonObject);
-        Greenhouse gh = new Greenhouse(owner, wallet, debt, pots, greenhouseTime, currentTime, plants);
-        return gh;
+        return new Greenhouse(owner, wallet, debt, pots, greenhouseTime, currentTime, plants);
     }
 
     // EFFECTS: parses plants array from JSON object and returns plants array
@@ -70,20 +69,14 @@ public class JsonReader {
 
     // EFFECTS: parses plant from JSON object and returns plant object
     private Plant parsePlant(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
         String type = jsonObject.getString("type");
-        int timePlanted = jsonObject.getInt("timePlanted");
-        int timeHydrated = jsonObject.getInt("timeHydrated");
-        int age = jsonObject.getInt("age");
-        int hydration = jsonObject.getInt("hydration");
         Plant plant;
         if (type.equals("Flower")) {
-            String colour = jsonObject.getString("colour");
-            plant = new Flower(name, type, timePlanted, timeHydrated, age, hydration, colour);
+            plant = new Flower(jsonObject);
         } else if (type.equals("Cactus")) {
-            plant = new Cactus(name, type, timePlanted, timeHydrated, age, hydration);
+            plant = new Cactus(jsonObject);
         } else {
-            plant = new Plant(name, type, timePlanted, timeHydrated, age, hydration);
+            plant = new Plant(jsonObject);
         }
         return plant;
     }

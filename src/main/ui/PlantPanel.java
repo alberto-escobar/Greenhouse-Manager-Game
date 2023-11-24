@@ -4,15 +4,14 @@ import model.Flower;
 import model.Greenhouse;
 import model.Plant;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
+
+//Represents a panel that represents information of a Plant object
 public class PlantPanel extends JPanel {
     private Plant plant;
     private Greenhouse gh;
@@ -26,10 +25,13 @@ public class PlantPanel extends JPanel {
     private JLabel ageLabel;
     private JLabel salePriceLabel;
 
+    // REQUIRES: p and gh are non-null
+    // MODIFIES: this
+    //  EFFECTS: Creates a PlantPanel based on the information from Plant.
     public PlantPanel(Plant p, Greenhouse gh) {
         this.plant = p;
         this.gh = gh;
-
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         imageLabel = new JLabel(generateImage());
         typeLabel = new JLabel(getPlantType());
         hydrationLabel = new JLabel(HYDRATION + plant.getHydration());
@@ -44,6 +46,8 @@ public class PlantPanel extends JPanel {
         addPopupMenu();
     }
 
+    // MODIFIES: this
+    //  EFFECTS: Updates PlantPanel components with information from Plant.
     public void update() {
         imageLabel.setIcon(generateImage());
         typeLabel.setText(getPlantType());
@@ -58,6 +62,7 @@ public class PlantPanel extends JPanel {
         repaint();
     }
 
+    // EFFECTS: Returns a ImageIcon based on the Plants type and age.
     private ImageIcon generateImage() {
         int imageAge = plant.getAge();
         if (imageAge > plant.getMinAgeToSell()) {
@@ -85,6 +90,7 @@ public class PlantPanel extends JPanel {
         }
     }
 
+    //  EFFECT: returns a string containing the Plant type and Colour, if present.
     private String getPlantType() {
         if (plant.getType().equals("Flower")) {
             Flower flower = (Flower) plant;
@@ -99,7 +105,33 @@ public class PlantPanel extends JPanel {
 
     }
 
+    // MODIFIES: this
+    //  EFFECTS: adds popup menu to PlantPanel that is accessed when PlantPanel component is right clicked.
     private void addPopupMenu() {
+        JPopupMenu popupMenu = this.createPlantPopMenu();
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
+    // MODIFIES: this
+    //  EFFECTS: creates a JPopupMenu with the option to water Plant and sell Plant
+    private JPopupMenu createPlantPopMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem waterPlantOption  = new JMenuItem("Water Plant");
         waterPlantOption.addActionListener(a -> {
@@ -121,23 +153,6 @@ public class PlantPanel extends JPanel {
 
         popupMenu.add(waterPlantOption);
         popupMenu.add(sellPlantOption);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                showPopup(e);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                showPopup(e);
-            }
-
-            private void showPopup(MouseEvent e) {
-                if (e.isPopupTrigger()) {
-                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
+        return popupMenu;
     }
 }

@@ -1,34 +1,26 @@
 {
     "owner": "test",
-    "wallet": 70,
+    "wallet": 300000,
     "plants": [
         {
-            "hydration": 60,
-            "name": "aloe",
-            "type": "Cactus",
-            "age": 2,
-            "timeHydrated": 0,
-            "timePlanted": 0
-        },
-        {
-            "colour": "Pink",
-            "hydration": 99,
-            "name": "lilly",
+            "colour": "None",
+            "hydration": 39,
+            "name": "flower",
             "type": "Flower",
-            "age": 4,
-            "timeHydrated": 399,
-            "timePlanted": 0
+            "age": 2,
+            "timeHydrated": 24,
+            "timePlanted": 24
         },
         {
-            "hydration": 66,
-            "name": "Agava",
+            "hydration": 89,
+            "name": "johnny",
             "type": "Cactus",
-            "age": 1,
-            "timeHydrated": 53,
-            "timePlanted": 53
+            "age": 0,
+            "timeHydrated": 88,
+            "timePlanted": 88
         }
     ],
-    "pots": 3,
-    "greenhouseTime": 402,
-    "debt": 10000
+    "pots": 20,
+    "greenhouseTime": 207,
+    "debt": 9990
 }

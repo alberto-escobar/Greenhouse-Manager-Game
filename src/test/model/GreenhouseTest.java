@@ -1,9 +1,6 @@
 package model;
 
-import model.exceptions.DuplicatePlantException;
-import model.exceptions.InsufficientFundsException;
-import model.exceptions.InsufficientSpaceException;
-import model.exceptions.InvalidAmountException;
+import model.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -167,9 +164,19 @@ public class GreenhouseTest {
             fail("Unexpected exception thrown");
         }
 
-        assertFalse(testGreenhouse.waterPlant("Fern"));
-
-        assertTrue(testGreenhouse.waterPlant("Cactus"));
+        try {
+            testGreenhouse.waterPlant("Fern");
+            fail("exception not thrown");
+        } catch(NonexistentPlantException e) {
+            //pass
+        } catch(Exception e){
+            fail("Unexpected exception thrown");
+        }
+        try {
+            testGreenhouse.waterPlant("Cactus");
+        } catch(Exception e){
+            fail("Unexpected exception thrown");
+        }
 
         Plant testLilly = testGreenhouse.getPlant("Lilly");
         assertEquals( 100 - (120 / testLilly.getDehydrationRate()), testLilly.getHydration());
@@ -189,8 +196,24 @@ public class GreenhouseTest {
         } catch (Exception e) {
             fail("Unexpected exception thrown");
         }
-        assertFalse(testGreenhouse.sellPlant("Cactus"));
-        assertTrue(testGreenhouse.sellPlant("Lilly"));
+
+
+        try {
+
+            testGreenhouse.sellPlant("Cactus");
+            fail("exception not thrown");
+        } catch(NonexistentPlantException e) {
+            //pass
+        } catch(Exception e){
+            fail("Unexpected exception thrown");
+        }
+        try {
+            testGreenhouse.sellPlant("Lilly");
+        } catch(Exception e){
+            fail("Unexpected exception thrown");
+        }
+
+
         assertTrue(testGreenhouse.getWallet() > 0);
         assertEquals(0, testGreenhouse.getPlants().size());
         try {
@@ -203,7 +226,11 @@ public class GreenhouseTest {
             fail("Unexpected exception thrown");
         }
 
-        assertTrue(testGreenhouse.sellPlant("Lilly"));
+        try {
+            testGreenhouse.sellPlant("Lilly");
+        } catch(Exception e){
+            fail("Unexpected exception thrown");
+        }
         assertTrue(testGreenhouse.getWallet() > 0);
         assertEquals(1, testGreenhouse.getPlants().size());
     }

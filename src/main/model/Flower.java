@@ -6,10 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// Represents a flower which extends Plant class has one additional field that dictates colour of flower when it blooms.
+// Colour of Flower influences sale price.
+
 public class Flower extends Plant {
     private String colour;
-    private List<String> colourList;
+    private final List<String> colourList;
 
+    // REQUIRES: name is a non-empty string, and currentTime >= 0
+    // MODIFIES: this
+    //   EFFECT: creates a Flower object with name, 100% hydration, and 0 age, and Colour = to "None". Growing
+    //           parameters are changed to make plant age quickly but require more frequent watering.
     public Flower(String name, int currentTime) {
         super(name, currentTime);
         this.type = "Flower";
@@ -20,16 +27,20 @@ public class Flower extends Plant {
         this.colourList = generateColourList();
     }
 
-    public Flower(String name, String type, int timePlanted, int timeHydrated, int age, int hydration, String colour) {
-        super(name, type, timePlanted, timeHydrated, age, hydration);
+    // REQUIRES: jsonObject has to have the same schema as described in toJson method
+    // MODIFIES: this
+    //   EFFECT: creates a Flower object with relevant fields equal to the data in jsonObject.
+    public Flower(JSONObject jsonObject) {
+        super(jsonObject);
         this.type = "Flower";
         this.growthRate = 90;
         this.dehydrationRate = 3;
         this.minAgeToSell = 4;
-        this.colour = colour;
+        this.colour = jsonObject.getString("colour");
         this.colourList = generateColourList();
     }
 
+    //   EFFECT: Method returns Plant.salePrice() multiplied by a factor depending on the colour field.
     @Override
     public int salePrice() {
         int salePrice = super.salePrice();
@@ -40,10 +51,11 @@ public class Flower extends Plant {
         }
     }
 
+    //   EFFECT: Same method as Plant.grow() except when Flower age reaches minAgeOfSale, it runs bloom method.
     @Override
     public void grow(int currentTime) {
         super.grow(currentTime);
-        if (this.age >= minAgeToSell && this.colour.equals("None")) {
+        if (this.age >= this.minAgeToSell && this.colour.equals("None")) {
             this.bloom();
         }
     }
@@ -60,7 +72,7 @@ public class Flower extends Plant {
 
     // REQUIRES: age >= minAgeToSell
     // MODIFIES: this
-    //   EFFECT: Randomizes color for flower
+    //   EFFECT: Randomizes colour for Flower based on available colours in colourList.
     private void bloom() {
         //random number generator
         Random random = new Random();
@@ -77,7 +89,7 @@ public class Flower extends Plant {
         }
     }
 
-    //   EFFECT: returns plant object as JSON object
+    //   EFFECT: returns Flower object as JSON object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

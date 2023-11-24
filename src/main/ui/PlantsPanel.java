@@ -7,16 +7,20 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//Represents a panel that contains all PlantPanel objects
 public class PlantsPanel extends JPanel {
     Greenhouse gh;
     List<PlantPanel> panelList;
 
+    // REQUIRES: gh is non-null
+    // MODIFIES: this
+    //  EFFECTS: Creates a PlantsPanel based on the information from gh
     public PlantsPanel(Greenhouse gh) {
         this.gh = gh;
         List<Plant> ghPlants = gh.getPlants();
         panelList = new ArrayList<>();
+
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         for (Plant p : ghPlants) {
             PlantPanel panel = new PlantPanel(p,gh);
@@ -27,8 +31,9 @@ public class PlantsPanel extends JPanel {
         add(mainPanel);
     }
 
+    // MODIFIES: this
+    //  EFFECTS: Updates all the PlantPanel components contained in this panel.
     public void update() {
-        //have a way to check if new plant is bought and then add panel
         List<Plant> ghPlants = gh.getPlants();
         if (ghPlants.size() != panelList.size()) {
             remakePanel();
@@ -39,12 +44,13 @@ public class PlantsPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    //  EFFECTS: Remakes the PlantsPanel
     public void remakePanel() {
         removeAll();
         List<Plant> ghPlants = gh.getPlants();
         panelList = new ArrayList<>();
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         for (Plant p : ghPlants) {
             PlantPanel panel = new PlantPanel(p,gh);

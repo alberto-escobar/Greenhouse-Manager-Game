@@ -1,6 +1,8 @@
 package model;
 
-// Represents a plant with a name, age (in months), and hydration level.
+// Represents a plant with a name, type, age, and hydration level. Other fields are timePlanted and timeHydrated which
+// help determine age and hydration level. More fields are used to determine how quickly plant ages, dehydrates, and
+// changes in value over time.
 
 import org.json.JSONObject;
 import persistence.Writable;
@@ -10,6 +12,7 @@ public class Plant implements Writable {
     protected String type;
     protected int age;
     protected int hydration;
+
     protected int timePlanted;
     protected int timeHydrated;
 
@@ -20,7 +23,7 @@ public class Plant implements Writable {
 
     // REQUIRES: name is a non-empty string, and currentTime >= 0
     // MODIFIES: this
-    //   EFFECT: creates a Plant object with name, 100% hydration, and 0 months of age.
+    //   EFFECT: creates a Plant object with name, 100% hydration, and 0 age.
     public Plant(String name, int currentTime) {
         this.name = name;
         this.type = "Plant";
@@ -30,25 +33,29 @@ public class Plant implements Writable {
         this.hydration = 100;
     }
 
-    public Plant(String name, String type, int timePlanted, int timeHydrated, int age, int hydration) {
-        this.name = name;
-        this.type = type;
-        this.timePlanted = timePlanted;
-        this.timeHydrated = timeHydrated;
-        this.age = age;
-        this.hydration = hydration;
+    // REQUIRES: jsonObject has to have the same schema as described in toJson method
+    // MODIFIES: this
+    //   EFFECT: creates a Plant object with relevant fields equal to the data in jsonObject.
+    public Plant(JSONObject jsonObject) {
+        this.name = jsonObject.getString("name");
+        this.type = jsonObject.getString("type");
+        this.timePlanted = jsonObject.getInt("timePlanted");
+        this.timeHydrated = jsonObject.getInt("timeHydrated");
+        this.age = jsonObject.getInt("age");
+        this.hydration = jsonObject.getInt("hydration");
     }
 
     // REQUIRES: currentTime >= timePlanted and currentTime >= timeHydrated
     // MODIFIES: this
-    //   EFFECT: age increase by 1 month for every 60 second increment since plant was created
-    //           hydration level reduces by 1 for every 10 second increment since plant was watered
+    //   EFFECT: age increases by 1 for every growthRate increment since plant was created (timePlanted).
+    //           Hydration level reduces by 1 for every dehydrationRate increment since plant was last watered
+    //           (timeHydrated).
     public void grow(int currentTime) {
         int timePassed = currentTime - this.timePlanted;
         this.age = timePassed / growthRate;
 
         int timeSinceLastWater = currentTime - this.timeHydrated;
-        this.hydration = 100 - timeSinceLastWater / dehydrationRate;
+        this.hydration = 100 - timeSinceLastWater / this.dehydrationRate;
         if (this.hydration < 0) {
             this.hydration = 0;
         }
@@ -56,27 +63,25 @@ public class Plant implements Writable {
 
     // REQUIRES: currentTime >= timeHydrated
     // MODIFIES: this
-    //   EFFECT: timeHydrated updated to currentTime and hydration level set to 100
+    //   EFFECT: timeHydrated updated to currentTime and hydration level set to 100.
     public void waterPlant(int currentTime) {
         this.timeHydrated = currentTime;
         this.hydration = 100;
     }
 
+    //   EFFECT: returns the sale price of the plant. The sale price depends on the age of the plant and if the plant
+    //           is at or above its minimum age of sale (minAgeOfSale) and below the maxAgeOfValue.
     public int salePrice() {
-        if (age < minAgeToSell) {
+        if (this.age < this.minAgeToSell) {
             return 10;
-        } else if (age > maxAgeToValue) {
+        } else if (this.age > this.maxAgeToValue) {
             return 20 * this.maxAgeToValue + 10;
         } else {
             return 20 * this.age + 10;
         }
     }
 
-    public boolean readyToSell() {
-        return age >= minAgeToSell;
-    }
-
-    //   EFFECT: returns plant object as JSON object
+    //   EFFECT: returns plant object as JSON object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -90,27 +95,27 @@ public class Plant implements Writable {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public int getAge() {
-        return this.age;
+        return age;
     }
 
     public int getHydration() {
-        return this.hydration;
+        return hydration;
     }
 
     public int getTimePlanted() {
-        return this.timePlanted;
+        return timePlanted;
     }
 
     public int getTimeHydrated() {
-        return this.timeHydrated;
+        return timeHydrated;
     }
 
     public int getGrowthRate() {

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Citation: JsonSerialization Demon
+// Inspired by: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 class JsonWriterTest extends JsonTest {
 
     @Test

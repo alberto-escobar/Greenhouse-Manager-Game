@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 
+//Represents a panel containing buttons to use various greenhouse functions.
 public class ToolPanel extends JPanel {
     private Greenhouse gh;
     JButton buyCactusButton;
@@ -17,6 +18,17 @@ public class ToolPanel extends JPanel {
 
     public ToolPanel(Greenhouse gh) {
         this.gh = gh;
+        createButtons();
+        add(buyCactusButton);
+        add(buyFlowerButton);
+        add(buyPotsButton);
+        add(payDebtButton);
+        add(saveGameButton);
+    }
+
+    // MODIFIES: this
+    //  EFFECTS: initializes buttons to activate various greenhouse functions.
+    public void createButtons() {
         buyCactusButton = new JButton("Buy Cactus");
         buyCactusButton.addActionListener((ActionEvent ae) ->
                 this.buyCactusCommand()
@@ -44,14 +56,10 @@ public class ToolPanel extends JPanel {
         saveGameButton.addActionListener((ActionEvent ae) ->
                 this.saveGameCommand()
         );
-        add(buyCactusButton);
-        add(buyFlowerButton);
-        add(buyPotsButton);
-        add(payDebtButton);
-        add(saveGameButton);
     }
 
-
+    // MODIFIES: this
+    //  EFFECTS: calls buyCactus method in greenhouse
     public void buyCactusCommand() {
         try {
             this.gh.buyCactus(this.getRandomString());
@@ -60,6 +68,8 @@ public class ToolPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    //  EFFECTS: calls buyFlower method in greenhouse
     public void buyFlowerCommand() {
         try {
             this.gh.buyFlower(this.getRandomString());
@@ -68,6 +78,8 @@ public class ToolPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    //  EFFECTS: calls buyPots method in greenhouse
     public void buyPotsCommand() {
         try {
             this.gh.buyPots();
@@ -76,8 +88,8 @@ public class ToolPanel extends JPanel {
         }
     }
 
-
-
+    // MODIFIES: this
+    //  EFFECTS: asks user for value of debt to pay and calls payDebt method in greenhouse using input value.
     public void payDebtCommand() {
         try {
             String userInput = JOptionPane.showInputDialog("Enter amount you want to pay:", null);
@@ -86,7 +98,8 @@ public class ToolPanel extends JPanel {
                 if (this.gh.isDebtPaidOff()) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "You have won the game, it took you " + this.gh.getDay() + " in-game days to pay your debt!",
+                            "You have won the game, it took you "
+                                    + this.gh.getDay() + " in-game days to pay your debt!",
                             "Congrats",
                             JOptionPane.PLAIN_MESSAGE
                     );
@@ -98,6 +111,9 @@ public class ToolPanel extends JPanel {
         }
     }
 
+
+    // MODIFIES: this
+    //  EFFECTS: saves Greenhouse to a json file.
     public void saveGameCommand() {
         try {
             String savePath = "./data/" + gh.getOwner() + ".json";
@@ -111,6 +127,8 @@ public class ToolPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    //  EFFECTS: generates a random 5 character string. This helps with creating random names for buying plants.
     private String getRandomString() {
         String saltChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();

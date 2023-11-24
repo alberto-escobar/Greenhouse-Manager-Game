@@ -10,7 +10,7 @@ import model.Plant;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-// Greenhouse manager game
+// Greenhouse manager console game
 public class ConsoleGame {
     private Scanner input;
     Greenhouse greenhouse;
@@ -166,7 +166,7 @@ public class ConsoleGame {
     }
 
     // MODIFIES: this
-    //   EFFECT: Buys baby plant in Greenhouse.
+    //   EFFECT: Buys baby cactus in Greenhouse.
     public void buyCactusCommand() {
         System.out.println("Enter name for new cactus:");
         String name = input.next();
@@ -178,7 +178,7 @@ public class ConsoleGame {
     }
 
     // MODIFIES: this
-    //   EFFECT: Buys baby plant in Greenhouse.
+    //   EFFECT: Buys baby flower in Greenhouse.
     public void buyFlowerCommand() {
         System.out.println("Enter name for new flower:");
         String name = input.next();
@@ -214,6 +214,7 @@ public class ConsoleGame {
 
     }
 
+    //   EFFECT: Saves current game to json file.
     public void saveCommand() {
         try {
             jsonWriter.open();
@@ -225,6 +226,8 @@ public class ConsoleGame {
         }
     }
 
+    // MODIFIES: this
+    //   EFFECT: loads game from json file located at savePath.
     public void loadCommand(String savePath) {
         try {
             jsonReader = new JsonReader(savePath);
@@ -236,13 +239,15 @@ public class ConsoleGame {
         }
     }
 
+    // MODIFIES: this
+    //   EFFECT: asks user for amount of money to pay debt in greenhouse.
     public void payDebtCommand() {
         try {
             System.out.println("How much debt do you want to pay off?");
             String amount = input.next();
             this.greenhouse.payDebt(Integer.valueOf(amount));
         } catch (Exception e) {
-            System.out.println("uh oh");
+            System.out.println(e.getMessage());
         }
     }
 

@@ -39,9 +39,8 @@ The cactus can be sold for a profit when it reaches a mature age, otherwise it i
     The flower can be sold for a profit when it reaches a mature age. otherwise it is sold for a loss.
     When the flower is ready to be sold it blooms to a random color, that can influence the sale price.
     The more rare the color it blooms to, the higher the sale price of the flower.
+9. As a user, I want to be able to play the game with a GUI
 
-### Phase 3 (To be Implemented)
-1. GUI
 
 
 
