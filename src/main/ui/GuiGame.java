@@ -24,19 +24,8 @@ public class GuiGame extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        JButton newGameButton = new JButton("New Game");
-        newGameButton.addActionListener((ActionEvent ae) ->
-                this.newGameCommand()
-        );
-        mainPanel.add(newGameButton);
-
-        JButton loadGameButton = new JButton("Load Game");
-        loadGameButton.addActionListener((ActionEvent ae) ->
-                this.loadGameCommand()
-        );
-        mainPanel.add(loadGameButton);
         add(mainPanel);
+        createSplashPanel();
         this.pack();
         this.setVisible(true);
         this.setTheme();
@@ -57,6 +46,7 @@ public class GuiGame extends JFrame {
         }
     }
 
+
     // MODIFIES: this
     //  EFFECTS: asks user for a name and creates a new Greenhouse and sets up associated game panels.
     private void newGameCommand() {
@@ -69,14 +59,12 @@ public class GuiGame extends JFrame {
 
     // MODIFIES: this
     //  EFFECTS: asks user for a name of save file and load Greenhouse file and sets up associated game panels.
-
     private void loadGameCommand() {
         String name = JOptionPane.showInputDialog(null, "Please enter name of game save to load:");
         String savePath = "./data/" + name + ".json";
         try {
             JsonReader jsonReader = new JsonReader(savePath);
             this.gh = jsonReader.read();
-
             mainPanel.removeAll();
             createGamePanels(gh);
         } catch (IOException e) {
@@ -85,12 +73,30 @@ public class GuiGame extends JFrame {
     }
 
     // MODIFIES: this
+    //  EFFECTS: Creates splash screen for game.
+    private void createSplashPanel() {
+        JLabel title = new JLabel("Welcome to Greenhouse simulator 2023");
+        mainPanel.add(title);
+
+        JButton newGameButton = new JButton("New Game");
+        newGameButton.addActionListener((ActionEvent ae) ->
+                this.newGameCommand()
+        );
+        mainPanel.add(newGameButton);
+
+        JButton loadGameButton = new JButton("Load Game");
+        loadGameButton.addActionListener((ActionEvent ae) ->
+                this.loadGameCommand()
+        );
+        mainPanel.add(loadGameButton);
+    }
+
+    // MODIFIES: this
     //  EFFECTS: Creates game panels based on Greenhouse
     private void createGamePanels(Greenhouse gh) {
         sp = new ScorePanel(gh);
         tp = new ToolPanel(gh);
         pp = new PlantsPanel(gh);
-
         mainPanel.add(sp);
         mainPanel.add(tp);
         mainPanel.add(pp);

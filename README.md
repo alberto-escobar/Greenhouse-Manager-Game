@@ -41,6 +41,17 @@ The cactus can be sold for a profit when it reaches a mature age, otherwise it i
     The more rare the color it blooms to, the higher the sale price of the flower.
 9. As a user, I want to be able to play the game with a GUI
 
-
+# Instructions for Grader
+- when you run the app, press "new game" and enter a name for the game file
+- you can generate the action of "adding X to Y" by pressing "Buy Cactus" or "Buy Flower"
+- You should see visual component which will be a picture of a pot with a plant growing as the plant
+  (either cactus or flower) ages with time.
+- You can right-click on the image of the plant and pressing "water plant", this will reset the hydration level
+- You can generate the action of "removing X from Y" by right-clicking on a plant and selecting "sell plant", I
+  recommend waiting a while for the plant to mature so it can be sold for a profit
+- You can press "Save Game" to save the state of the game
+- After saving, you can quit the game and re-open the game. 
+- On the splash screen select "load game" to load a game file Enter the name you used when creating a new game, 
+here the game will load from the point it was saved last.
 
 
