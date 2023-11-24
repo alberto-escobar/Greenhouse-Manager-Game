@@ -1,26 +1,8 @@
 {
     "owner": "test",
-    "wallet": 300000,
-    "plants": [
-        {
-            "colour": "None",
-            "hydration": 39,
-            "name": "flower",
-            "type": "Flower",
-            "age": 2,
-            "timeHydrated": 24,
-            "timePlanted": 24
-        },
-        {
-            "hydration": 89,
-            "name": "johnny",
-            "type": "Cactus",
-            "age": 0,
-            "timeHydrated": 88,
-            "timePlanted": 88
-        }
-    ],
+    "wallet": 301580,
+    "plants": [],
     "pots": 20,
-    "greenhouseTime": 207,
+    "greenhouseTime": 1652,
     "debt": 9990
 }
