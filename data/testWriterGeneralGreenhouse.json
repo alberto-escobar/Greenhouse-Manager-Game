@@ -1,14 +1,33 @@
 {
     "owner": "General",
-    "wallet": 0,
-    "plants": [{
-        "hydration": 72,
-        "name": "Lilly",
-        "type": "Plant",
-        "age": 1,
-        "timeHydrated": 0,
-        "timePlanted": 0
-    }],
+    "wallet": 40,
+    "plants": [
+        {
+            "hydration": 72,
+            "name": "Lilly",
+            "type": "Plant",
+            "age": 1,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        },
+        {
+            "colour": "None",
+            "hydration": 54,
+            "name": "Poppy",
+            "type": "Flower",
+            "age": 1,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        },
+        {
+            "hydration": 86,
+            "name": "Zucc",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 0,
+            "timePlanted": 0
+        }
+    ],
     "pots": 4,
     "greenhouseTime": 140,
     "debt": 10000

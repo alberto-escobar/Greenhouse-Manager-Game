@@ -17,6 +17,7 @@ public class PlantTest {
         assertEquals("Lilly", testPlant.getName());
         assertEquals(0, testPlant.getAge());
         assertEquals(100, testPlant.getHydration());
+        assertEquals(2, testPlant.getMinAgeToSell());
     }
 
     @Test
@@ -53,5 +54,8 @@ public class PlantTest {
         testPlant.grow(testPlant.getGrowthRate() *3);
         assertEquals(3, testPlant.getAge());
         assertEquals(70, testPlant.salePrice());
+
+        testPlant.grow(testPlant.getGrowthRate() *200);
+        assertEquals(210, testPlant.salePrice());
     }
 }
