@@ -24,6 +24,7 @@ public class GreenhouseTest {
         assertEquals(3, testGreenhouse.getPots());
         assertEquals(0, testGreenhouse.getPlants().size());
         assertEquals(0, testGreenhouse.getTime());
+        assertEquals(0, testGreenhouse.getDay());
     }
 
     @Test
@@ -82,7 +83,6 @@ public class GreenhouseTest {
             fail("Unexpected exception thrown");
         }
 
-        //TODO check the correct plants are there
         List<Plant> testPlants = testGreenhouse.getPlants();
         assertEquals(3, testGreenhouse.getNumPlants());
 
@@ -122,9 +122,115 @@ public class GreenhouseTest {
             fail("Unexpected exception thrown");
         }
 
-        //TODO check the correct plants are there
         assertEquals(4, testGreenhouse.getNumPlants());
+    }
 
+    //test planting with no seed, planting one seed, and planting two seeds, planting plant with the same
+    @Test
+    void testBuyCactus() {
+        testGreenhouse.setWallet(30);
+        try {
+            testGreenhouse.buyCactus("Lilly");
+            testGreenhouse.buyCactus("Cactus");
+            testGreenhouse.buyCactus("Fern");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+
+        List<Plant> testPlants = testGreenhouse.getPlants();
+        assertEquals(3, testGreenhouse.getNumPlants());
+
+        try {
+            testGreenhouse.buyCactus("Lilly");
+            fail("Exception not thrown");
+        } catch (InsufficientFundsException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.setWallet(10);
+            testGreenhouse.buyCactus("Lilly");
+            fail("Exception not thrown");
+        } catch (DuplicatePlantException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.buyCactus("Herb");
+            fail("Exception not thrown");
+        } catch (InsufficientSpaceException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.setWallet(110);
+            testGreenhouse.buyPots();
+            testGreenhouse.buyCactus("Herb");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+
+        assertEquals(4, testGreenhouse.getNumPlants());
+    }
+
+    //test planting with no seed, planting one seed, and planting two seeds, planting plant with the same
+    @Test
+    void testBuyFlower() {
+        testGreenhouse.setWallet(150);
+        try {
+            testGreenhouse.buyFlower("Lilly");
+            testGreenhouse.buyFlower("Cactus");
+            testGreenhouse.buyFlower("Fern");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+
+        List<Plant> testPlants = testGreenhouse.getPlants();
+        assertEquals(3, testGreenhouse.getNumPlants());
+
+        try {
+            testGreenhouse.buyFlower("Lilly");
+            fail("Exception not thrown");
+        } catch (InsufficientFundsException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.setWallet(50);
+            testGreenhouse.buyFlower("Lilly");
+            fail("Exception not thrown");
+        } catch (DuplicatePlantException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.buyFlower("Herb");
+            fail("Exception not thrown");
+        } catch (InsufficientSpaceException a) {
+            //pass
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            testGreenhouse.setWallet(150);
+            testGreenhouse.buyPots();
+            testGreenhouse.buyFlower("Herb");
+        } catch (Exception e) {
+            fail("Unexpected exception thrown");
+        }
+
+        assertEquals(4, testGreenhouse.getNumPlants());
     }
 
     //test that all plant objects in plants lise age and dehydrate after updated a given length of time
@@ -148,6 +254,13 @@ public class GreenhouseTest {
         Plant testCactus = testGreenhouse.getPlant("Cactus");
         assertEquals( 60 / testCactus.getGrowthRate(), testCactus.getAge());
         assertEquals( 100 - (60 / testCactus.getDehydrationRate()), testCactus.getHydration());
+
+
+        testGreenhouse.updateTime(testLilly.getDehydrationRate()*1000*100);
+        testGreenhouse.updatePlants();
+        testLilly = testGreenhouse.getPlant("Lilly");
+        assertEquals(null, testLilly);
+
     }
 
     //test that plants are waters when using correct name and no existing name
