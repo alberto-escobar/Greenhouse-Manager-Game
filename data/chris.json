@@ -1,0 +1,26 @@
+{
+    "owner": "chris",
+    "wallet": 40,
+    "plants": [
+        {
+            "hydration": 100,
+            "name": "V5A6Z",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 6,
+            "timePlanted": 6
+        },
+        {
+            "colour": "None",
+            "hydration": 98,
+            "name": "E53HG",
+            "type": "Flower",
+            "age": 0,
+            "timeHydrated": 7,
+            "timePlanted": 7
+        }
+    ],
+    "pots": 3,
+    "greenhouseTime": 14,
+    "debt": 10000
+}

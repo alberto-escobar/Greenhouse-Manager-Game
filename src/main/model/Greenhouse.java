@@ -25,7 +25,7 @@ public class Greenhouse implements Writable {
     private final long referenceTime;
     private int day;
 
-    private int gameSpeed = 1000;
+    private int gameSpeed = 100;
 
     // REQUIRES: owner is a non-empty string, and currentTime >= 0
     // MODIFIES: this
