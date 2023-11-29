@@ -54,4 +54,42 @@ The cactus can be sold for a profit when it reaches a mature age, otherwise it i
 - On the splash screen select "load game" to load a game file Enter the name you used when creating a new game, 
 here the game will load from the point it was saved last.
 
+# Phase 4: Task 2
+```console
+Printing Event Log
+Tue Nov 28 19:25:31 PST 2023: Created new greenhouse owned by: Alberto
+Tue Nov 28 19:25:32 PST 2023: Alberto has purchased a cactus called 4T0U5
+Tue Nov 28 19:25:34 PST 2023: Alberto has purchased a flower called 2LU9Q
+Tue Nov 28 19:25:35 PST 2023: Alberto has purchased a cactus called SA18W
+Tue Nov 28 19:25:54 PST 2023: Alberto has watered 2LU9Q Flower
+Tue Nov 28 19:25:56 PST 2023: Alberto has watered 4T0U5 Cactus
+Tue Nov 28 19:26:10 PST 2023: 2LU9Q Flower has bloomed into a Red Flower
+Tue Nov 28 19:26:12 PST 2023: Alberto has watered 2LU9Q Flower
+Tue Nov 28 19:26:14 PST 2023: Alberto has watered 4T0U5 Cactus
+Tue Nov 28 19:26:17 PST 2023: Alberto has sold 2LU9Q Flower for $90
+Tue Nov 28 19:26:28 PST 2023: Alberto has watered SA18W Cactus
+Tue Nov 28 19:26:30 PST 2023: Alberto has watered 4T0U5 Cactus
+Tue Nov 28 19:26:33 PST 2023: Alberto has purchased a flower called OKQRC
+Tue Nov 28 19:26:57 PST 2023: Alberto has watered OKQRC Flower
+Tue Nov 28 19:27:09 PST 2023: OKQRC Flower has bloomed into a Red Flower
+Tue Nov 28 19:27:11 PST 2023: Alberto has sold OKQRC Flower for $90
+Tue Nov 28 19:27:13 PST 2023: Alberto has bought a pot
+Tue Nov 28 19:27:15 PST 2023: Alberto has purchased a flower called IZKRN
+Tue Nov 28 19:27:26 PST 2023: Alberto has sold 4T0U5 Cactus for $130
+Tue Nov 28 19:27:28 PST 2023: Alberto has sold SA18W Cactus for $130
+Tue Nov 28 19:27:31 PST 2023: Alberto has purchased a flower called WTEMG
+Tue Nov 28 19:27:32 PST 2023: Alberto has purchased a flower called 8SERQ
+Tue Nov 28 19:27:34 PST 2023: Alberto has purchased a flower called XQ41J
+Tue Nov 28 19:27:49 PST 2023: Alberto has watered WTEMG Flower
+Tue Nov 28 19:27:50 PST 2023: Alberto has watered 8SERQ Flower
+Tue Nov 28 19:27:51 PST 2023: Alberto has watered XQ41J Flower
+Tue Nov 28 19:28:07 PST 2023: WTEMG Flower has bloomed into a Red Flower
+Tue Nov 28 19:28:08 PST 2023: 8SERQ Flower has bloomed into a Black Flower
+Tue Nov 28 19:28:10 PST 2023: XQ41J Flower has bloomed into a Red Flower
+Tue Nov 28 19:28:13 PST 2023: Alberto has sold WTEMG Flower for $90
+Tue Nov 28 19:28:18 PST 2023: Alberto has sold XQ41J Flower for $90
+Tue Nov 28 19:28:51 PST 2023: Alberto has sold 8SERQ Flower for $680
+Tue Nov 28 19:28:56 PST 2023: Alberto has paid $500 of debt
+```
+
 

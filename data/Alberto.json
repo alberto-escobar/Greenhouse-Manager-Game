@@ -1,0 +1,34 @@
+{
+    "owner": "Alberto",
+    "wallet": 490,
+    "plants": [
+        {
+            "colour": "Black",
+            "hydration": 91,
+            "name": "BCGIU",
+            "type": "Flower",
+            "age": 5,
+            "timeHydrated": 2175,
+            "timePlanted": 1704
+        },
+        {
+            "hydration": 99,
+            "name": "ASALE",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 2187,
+            "timePlanted": 2187
+        },
+        {
+            "hydration": 99,
+            "name": "YI3VI",
+            "type": "Cactus",
+            "age": 0,
+            "timeHydrated": 2190,
+            "timePlanted": 2190
+        }
+    ],
+    "pots": 4,
+    "greenhouseTime": 2202,
+    "debt": 9500
+}

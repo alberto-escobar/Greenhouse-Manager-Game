@@ -35,7 +35,6 @@ public class GuiGame extends JFrame {
         this.pack();
         this.setVisible(true);
         this.setTheme();
-        //this.setDarkTheme();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -53,8 +52,6 @@ public class GuiGame extends JFrame {
     //  EFFECTS: sets up JFrame to have default theme used in windows.
     private void setTheme() {
         try {
-            Color darkBackground = new Color(33, 33, 33);
-            Color darkForeground = new Color(200, 200, 200);
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());

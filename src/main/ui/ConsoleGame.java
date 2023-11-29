@@ -2,11 +2,10 @@ package ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
-import model.Flower;
-import model.Greenhouse;
-import model.Plant;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -67,6 +66,12 @@ public class ConsoleGame {
             }
         }
         System.out.println("good bye!");
+        System.out.println("Printing Event Log");
+        Iterator<Event> iterator = EventLog.getInstance().iterator();
+        while (iterator.hasNext()) {
+            Event event = iterator.next();
+            System.out.println(event.getDate() + ": " + event.getDescription());
+        }
     }
 
     // REQUIRES: String to be a string

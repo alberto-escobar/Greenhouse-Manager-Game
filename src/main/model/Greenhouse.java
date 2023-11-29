@@ -25,7 +25,8 @@ public class Greenhouse implements Writable {
     private final long referenceTime;
     private int day;
 
-    private int gameSpeed = 1000;
+    //set gameSpeed to 1000 before running tests
+    private int gameSpeed = 100;
 
     // REQUIRES: owner is a non-empty string, and currentTime >= 0
     // MODIFIES: this
@@ -38,7 +39,7 @@ public class Greenhouse implements Writable {
         this.plants = new ArrayList<>();
         this.greenhouseTime = 0;
         this.referenceTime = currentTime;
-
+        EventLog.getInstance().logEvent(new Event("Created new greenhouse owned by: " + this.owner));
     }
 
     // REQUIRES: owner is a non-empty string, all int values are >= 0, plants has to be a List that uses type Plant
@@ -53,6 +54,7 @@ public class Greenhouse implements Writable {
         this.greenhouseTime = greenhouseTime;
         this.referenceTime = referenceTime - ((long) greenhouseTime * gameSpeed);
         this.plants = plants;
+        EventLog.getInstance().logEvent(new Event("Loaded existing greenhouse owned by: " + this.owner));
     }
 
     // REQUIRES: currentTime > greenhouseTime
