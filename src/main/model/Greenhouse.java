@@ -72,6 +72,7 @@ public class Greenhouse implements Writable {
         if (wallet >= 100) {
             pots += 1;
             wallet -= 100;
+            EventLog.getInstance().logEvent(new Event(this.owner + " has bought a pot"));
         } else {
             throw new InsufficientFundsException();
         }
@@ -100,6 +101,7 @@ public class Greenhouse implements Writable {
             }
             this.plants.add(new Plant(name, this.greenhouseTime));
             this.wallet -= 10;
+            EventLog.getInstance().logEvent(new Event(this.owner + " has purchased a plant called " + name));
         } else {
             throw new InsufficientFundsException();
         }
@@ -123,6 +125,7 @@ public class Greenhouse implements Writable {
             }
             this.plants.add(new Cactus(name, this.greenhouseTime));
             this.wallet -= 10;
+            EventLog.getInstance().logEvent(new Event(this.owner + " has purchased a cactus called " + name));
         } else {
             throw new InsufficientFundsException();
         }
@@ -146,6 +149,7 @@ public class Greenhouse implements Writable {
             }
             this.plants.add(new Flower(name, this.greenhouseTime));
             this.wallet -= 50;
+            EventLog.getInstance().logEvent(new Event(this.owner + " has purchased a flower called " + name));
         } else {
             throw new InsufficientFundsException();
         }
@@ -176,6 +180,8 @@ public class Greenhouse implements Writable {
             throw new NonexistentPlantException();
         }
         plant.waterPlant(this.greenhouseTime);
+        EventLog.getInstance().logEvent(new Event(this.owner
+                + " has watered " + plant.getName() + " " + plant.getType()));
     }
 
     // MODIFIES: this
@@ -189,6 +195,9 @@ public class Greenhouse implements Writable {
         }
         this.plants.remove(plant);
         wallet += plant.salePrice();
+
+        EventLog.getInstance().logEvent(new Event(this.owner
+                + " has sold " + plant.getName() + " " + plant.getType() + " for $" + plant.salePrice()));
     }
 
     //   EFFECT: Returns Plant object in plants list with matching name. Returns null, if no plant of that name exists.
@@ -215,9 +224,11 @@ public class Greenhouse implements Writable {
             if (this.debt < amount) {
                 this.wallet -= this.debt;
                 this.debt = 0;
+                EventLog.getInstance().logEvent(new Event(this.owner + " has paid off all their debt"));
             } else {
                 this.wallet -= amount;
                 this.debt -= amount;
+                EventLog.getInstance().logEvent(new Event(this.owner + " has paid $" + amount + " of debt"));
             }
         }
     }

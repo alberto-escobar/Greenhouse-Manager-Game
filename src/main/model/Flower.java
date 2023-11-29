@@ -87,6 +87,8 @@ public class Flower extends Plant {
         } else {
             this.colour = this.colourList.get(0);
         }
+        EventLog.getInstance().logEvent(new Event(this.name + " " + this.type + " has bloomed into a "
+                + this.colour + " " + this.type));
     }
 
     //   EFFECT: returns Flower object as JSON object.

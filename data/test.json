@@ -1,8 +1,43 @@
 {
     "owner": "test",
-    "wallet": 301580,
-    "plants": [],
-    "pots": 20,
-    "greenhouseTime": 1652,
-    "debt": 9990
+    "wallet": 0,
+    "plants": [
+        {
+            "hydration": 81,
+            "name": "OS38T",
+            "type": "Cactus",
+            "age": 5,
+            "timeHydrated": 856,
+            "timePlanted": 27
+        },
+        {
+            "hydration": 84,
+            "name": "3SKHJ",
+            "type": "Cactus",
+            "age": 3,
+            "timeHydrated": 882,
+            "timePlanted": 493
+        },
+        {
+            "colour": "Red",
+            "hydration": 66,
+            "name": "A5IC7",
+            "type": "Flower",
+            "age": 4,
+            "timeHydrated": 945,
+            "timePlanted": 660
+        },
+        {
+            "colour": "None",
+            "hydration": 78,
+            "name": "J14T9",
+            "type": "Flower",
+            "age": 3,
+            "timeHydrated": 979,
+            "timePlanted": 701
+        }
+    ],
+    "pots": 4,
+    "greenhouseTime": 1047,
+    "debt": 9900
 }

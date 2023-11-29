@@ -1,12 +1,18 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Greenhouse;
 import persistence.JsonReader;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.Iterator;
 
 //Green house manager GUI game
 public class GuiGame extends JFrame {
@@ -29,12 +35,26 @@ public class GuiGame extends JFrame {
         this.pack();
         this.setVisible(true);
         this.setTheme();
+        //this.setDarkTheme();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Printing Event Log");
+                Iterator<Event> iterator = EventLog.getInstance().iterator();
+                while (iterator.hasNext()) {
+                    Event event = iterator.next();
+                    System.out.println(event.getDate() + ": " + event.getDescription());
+                }
+            }
+        });
     }
 
     // MODIFIES: this
     //  EFFECTS: sets up JFrame to have default theme used in windows.
     private void setTheme() {
         try {
+            Color darkBackground = new Color(33, 33, 33);
+            Color darkForeground = new Color(200, 200, 200);
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
@@ -45,7 +65,6 @@ public class GuiGame extends JFrame {
             e.printStackTrace();
         }
     }
-
 
     // MODIFIES: this
     //  EFFECTS: asks user for a name and creates a new Greenhouse and sets up associated game panels.
@@ -76,15 +95,18 @@ public class GuiGame extends JFrame {
     //  EFFECTS: Creates splash screen for game.
     private void createSplashPanel() {
         JLabel title = new JLabel("Welcome to Greenhouse simulator 2023");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
 
         JButton newGameButton = new JButton("New Game");
+        newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameButton.addActionListener((ActionEvent ae) ->
                 this.newGameCommand()
         );
         mainPanel.add(newGameButton);
 
         JButton loadGameButton = new JButton("Load Game");
+        loadGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loadGameButton.addActionListener((ActionEvent ae) ->
                 this.loadGameCommand()
         );
@@ -95,8 +117,11 @@ public class GuiGame extends JFrame {
     //  EFFECTS: Creates game panels based on Greenhouse
     private void createGamePanels(Greenhouse gh) {
         sp = new ScorePanel(gh);
+        sp.setAlignmentY(Component.TOP_ALIGNMENT);
         tp = new ToolPanel(gh);
+        tp.setAlignmentY(Component.TOP_ALIGNMENT);
         pp = new PlantsPanel(gh);
+        pp.setAlignmentY(Component.TOP_ALIGNMENT);
         mainPanel.add(sp);
         mainPanel.add(tp);
         mainPanel.add(pp);

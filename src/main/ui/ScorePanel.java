@@ -3,6 +3,7 @@ package ui;
 import model.Greenhouse;
 
 import javax.swing.*;
+import java.awt.*;
 
 // Represents a panel that displays greenhouse score.
 public class ScorePanel extends JPanel {
@@ -28,10 +29,12 @@ public class ScorePanel extends JPanel {
         debtLabel = new JLabel(DEBT + gh.getDebt());
         walletLabel = new JLabel(WALLET + gh.getWallet());
         potsLabel = new JLabel(POTS + gh.availablePots());
+        add(ownerLabel);
         add(timeLabel);
         add(debtLabel);
         add(walletLabel);
         add(potsLabel);
+        setPreferredSize(new Dimension(1000, 50));
     }
 
 

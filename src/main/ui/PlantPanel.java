@@ -44,6 +44,7 @@ public class PlantPanel extends JPanel {
         add(ageLabel);
         add(salePriceLabel);
         addPopupMenu();
+        setPreferredSize(new Dimension(100, 100));
     }
 
     // MODIFIES: this

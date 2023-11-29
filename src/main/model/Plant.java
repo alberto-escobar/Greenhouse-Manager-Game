@@ -57,6 +57,8 @@ public class Plant implements Writable {
         int timeSinceLastWater = currentTime - this.timeHydrated;
         this.hydration = 100 - timeSinceLastWater / this.dehydrationRate;
         if (this.hydration < 0) {
+            EventLog.getInstance().logEvent(new Event(this.name + " "
+                    + this.type + " has died of dehydration."));
             this.hydration = 0;
         }
     }
