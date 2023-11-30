@@ -26,7 +26,7 @@ public class Greenhouse implements Writable {
     private int day;
 
     //set gameSpeed to 1000 before running tests
-    private int gameSpeed = 100;
+    private int gameSpeed = 1000;
 
     // REQUIRES: owner is a non-empty string, and currentTime >= 0
     // MODIFIES: this
