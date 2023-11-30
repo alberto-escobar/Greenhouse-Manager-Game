@@ -92,4 +92,17 @@ Tue Nov 28 19:28:51 PST 2023: Alberto has sold 8SERQ Flower for $680
 Tue Nov 28 19:28:56 PST 2023: Alberto has paid $500 of debt
 ```
 
+# Phase 4: Task 3
+![Alt text](UML_Design_Diagram.png "UML Diagram")
+
+If I had more time to work on this project I would do the following:
+1. I would implement an observer pattern in my model package. The reason I would do this is that my project 
+focuses on updating various plants over time and having fields of the plant update as time passes. This
+refactoring would help manage the update events in my code.
+2. I would add another class that would manage the financial aspect of the Greenhouse. Currently, managing debt, wallet,
+and purchasing of plants and pots are all methods within Greenhouse. It would be easier to manage the codebase if these
+ methods are in another class.
+3. I would add a feature that would change the base price over time. This would add an element of the user having to
+careful consider when to buy plants, so they are sold during a market high. This kind of feature would make the game act
+ similar to the stock market.
 
