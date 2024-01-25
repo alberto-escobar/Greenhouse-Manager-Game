@@ -122,7 +122,7 @@ public class Plant implements Writable {
 
     public int getGrowthRate() {
         return growthRate;
-    }
+    }Wria
 
     public int getDehydrationRate() {
         return dehydrationRate;

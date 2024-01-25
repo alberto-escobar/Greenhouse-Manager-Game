@@ -55,6 +55,7 @@ The cactus can be sold for a profit when it reaches a mature age, otherwise it i
 here the game will load from the point it was saved last.
 
 # Phase 4: Task 2
+Event logger output example:
 ```console
 Printing Event Log
 Tue Nov 28 19:25:31 PST 2023: Created new greenhouse owned by: Alberto
@@ -93,7 +94,9 @@ Tue Nov 28 19:28:56 PST 2023: Alberto has paid $500 of debt
 ```
 
 # Phase 4: Task 3
+
 ![Alt text](UML_Design_Diagram.png "UML Diagram")
+*Greenhouse Manager UML Diagram*
 
 If I had more time to work on this project I would do the following:
 1. I would implement an observer pattern in my model package. The reason I would do this is that my project 
